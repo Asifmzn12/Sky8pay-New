@@ -1,0 +1,252 @@
+/* Body/Main content theme */
+.light-theme {
+  background-color: #f5f5f5; /* light background */
+  color: #333; /* dark text */
+}
+
+.dark-theme {
+  background-color: #121212; /* dark background */
+  color: #fff; /* light text */
+}
+
+/* Apply to main content */
+.light-theme .main-content {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.dark-theme .main-content {
+  background-color: #121212;
+  color: #fff;
+}
+
+/* Container & Main */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-container,
+.main-content {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Sidebar Themes */
+.light-theme .pro-sidebar {
+  background: #fff;
+  color: #333;
+}
+
+.dark-theme .pro-sidebar {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+/* Sidebar width & collapse */
+.pro-sidebar {
+  transition: width 0.3s;
+  overflow: hidden;
+}
+
+.pro-sidebar.collapsed {
+  width: 80px !important;
+}
+
+/* Header */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.collapse-btn,
+.theme-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Menu Items */
+.pro-menu-item {
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.light-theme .pro-menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #000 !important;
+}
+
+.dark-theme .pro-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+}
+
+.light-theme .pro-menu-item.active {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #000 !important;
+}
+
+.dark-theme .pro-menu-item.active {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+}
+
+/* Submenus */
+.pro-sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.pro-sub-menu.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.pro-sub-menu .pro-menu-item {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.pro-sub-menu.open .pro-menu-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Collapse icon/text animation */
+.icon-collapsed {
+  transform: translateX(5px);
+  transition: transform 0.3s;
+}
+
+.fade-text {
+  opacity: 1;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.pro-sidebar.collapsed .fade-text {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+/* Bottom User Profile */
+.sidebar-profile {
+  margin-top: auto;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-pic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.collapsed-pic {
+  width: 30px;
+  height: 30px;
+}
+
+.profile-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.more-btn,
+.theme-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-size: 18px;
+}
+
+/* User Modal */
+.user-modal {
+  position: absolute;
+  bottom: 60px; /* adjust based on sidebar height */
+  left: 10px;
+  background-color: inherit;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 150px;
+  color: inherit;
+}
+
+.user-modal ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.user-modal ul li {
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+.light-theme .user-modal ul li:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-theme .user-modal ul li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Optional: keep bottom-menu styles for future use */
+.bottom-menu {
+  margin-top: auto;
+}
+
+/* Fix additional overrides */
+.css-vz9dfi {
+  color: white;
+}
+
+.ps-menuitem-root .ps-menu-button:hover {
+  color: black;
+}
+
+.ps-open .ps-menu-button {
+  color: black;
+}
+
+.ps-submenu-content a {
+  color: black !important;
+}
