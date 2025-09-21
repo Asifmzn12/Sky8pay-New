@@ -2,7 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { menus } from "./config/menu";
-import DashBoardLayout from "./components/DashBoardLayout";
+import DashBoardLayout from "./layouts/DashBoardLayout";
 // Pages Imports
 import DashBoard from "./Pages/DashBoard";
 import Sales from "./Pages/SaleDashBoard/Sales";
