@@ -2,31 +2,31 @@ import React, { useState, useMemo } from 'react';
 
 // Dummy data for transactions
 const ALL_TRANSACTIONS = [
-  { id: 1, sender: 'John Doe', receiver: 'Jane Smith', amount: 50.00, status: 'Completed', parentMode: 'Online Banking', date: '2025-09-18' },
-  { id: 2, sender: 'Alice Johnson', receiver: 'Bob Williams', amount: 120.50, status: 'Pending', parentMode: 'Credit Card', date: '2025-09-17' },
-  { id: 3, sender: 'Michael Brown', receiver: 'Emily Davis', amount: 25.75, status: 'Failed', parentMode: 'Mobile App', date: '2025-09-16' },
-  { id: 4, sender: 'Sophia Wilson', receiver: 'Daniel Taylor', amount: 300.00, status: 'Completed', parentMode: 'Online Banking', date: '2025-09-16' },
-  { id: 5, sender: 'Olivia Lee', receiver: 'Liam Rodriguez', amount: 75.25, status: 'Completed', parentMode: 'Debit Card', date: '2025-09-15' },
-  { id: 6, sender: 'Ethan Martinez', receiver: 'Ava Garcia', amount: 15.00, status: 'Pending', parentMode: 'Mobile App', date: '2025-09-15' },
-  { id: 7, sender: 'Isabella Hernandez', receiver: 'Mason Clark', amount: 210.00, status: 'Completed', parentMode: 'Online Banking', date: '2025-09-14' },
-  { id: 8, sender: 'Noah Lewis', receiver: 'Charlotte King', amount: 45.80, status: 'Completed', parentMode: 'Credit Card', date: '2025-09-14' },
-  { id: 9, sender: 'Mia Hill', receiver: 'William Scott', amount: 99.99, status: 'Completed', parentMode: 'Debit Card', date: '2025-09-13' },
-  { id: 10, sender: 'Jacob Turner', receiver: 'Amelia Baker', amount: 5.50, status: 'Pending', parentMode: 'Mobile App', date: '2025-09-13' },
-  { id: 11, sender: 'Evelyn Wright', receiver: 'Alexander Adams', amount: 85.00, status: 'Completed', parentMode: 'Online Banking', date: '2025-09-12' },
-  { id: 12, sender: 'James White', receiver: 'Harper Nelson', amount: 17.50, status: 'Completed', parentMode: 'Credit Card', date: '2025-09-12' },
-  { id: 13, sender: 'Abigail Green', receiver: 'Benjamin Carter', amount: 250.00, status: 'Failed', parentMode: 'Mobile App', date: '2025-09-11' },
-  { id: 14, sender: 'Daniel Hughes', receiver: 'Chloe Hall', amount: 60.00, status: 'Completed', parentMode: 'Debit Card', date: '2025-09-11' },
-  { id: 15, sender: 'Ella Morris', receiver: 'Henry Cook', amount: 35.00, status: 'Completed', parentMode: 'Online Banking', date: '2025-09-10' },
-  { id: 16, sender: 'Joseph Bell', receiver: 'Grace Foster', amount: 180.00, status: 'Completed', parentMode: 'Credit Card', date: '2025-09-10' },
-  { id: 17, sender: 'Madison Rivera', receiver: 'Samuel Long', amount: 90.50, status: 'Pending', parentMode: 'Mobile App', date: '2025-09-09' },
-  { id: 18, sender: 'Sebastian Gray', receiver: 'Natalie Ward', amount: 11.11, status: 'Completed', parentMode: 'Debit Card', date: '2025-09-09' },
-  { id: 19, sender: 'Victoria Parker', receiver: 'Andrew Reed', amount: 500.00, status: 'Completed', parentMode: 'Online Banking', date: '2025-09-08' },
-  { id: 20, sender: 'Jack Cox', receiver: 'Lily Brooks', amount: 65.00, status: 'Failed', parentMode: 'Credit Card', date: '2025-09-08' },
-  { id: 21, sender: 'Luna Peterson', receiver: 'Luke Ross', amount: 20.00, status: 'Completed', parentMode: 'Mobile App', date: '2025-09-07' },
-  { id: 22, sender: 'Wyatt Butler', receiver: 'Aria Simmons', amount: 42.50, status: 'Completed', parentMode: 'Debit Card', date: '2025-09-07' },
-  { id: 23, sender: 'Zoe Cooper', receiver: 'Carter Fisher', amount: 150.00, status: 'Completed', parentMode: 'Online Banking', date: '2025-09-06' },
-  { id: 24, sender: 'Penelope Evans', receiver: 'Leo Jenkins', amount: 8.75, status: 'Pending', parentMode: 'Credit Card', date: '2025-09-06' },
-  { id: 25, sender: 'Gabriel Bell', receiver: 'Nora Foster', amount: 225.00, status: 'Completed', parentMode: 'Mobile App', date: '2025-09-05' },
+  { id: 1, sender: 'John Doe', receiver: 'Jane Smith', amount: 50.00, status: 'Completed', paymentMode: 'Online Banking', date: '2025-09-18' },
+  { id: 2, sender: 'Alice Johnson', receiver: 'Bob Williams', amount: 120.50, status: 'Pending', paymentMode: 'Credit Card', date: '2025-09-17' },
+  { id: 3, sender: 'Michael Brown', receiver: 'Emily Davis', amount: 25.75, status: 'Failed', paymentMode: 'Mobile App', date: '2025-09-16' },
+  { id: 4, sender: 'Sophia Wilson', receiver: 'Daniel Taylor', amount: 300.00, status: 'Completed', paymentMode: 'Online Banking', date: '2025-09-16' },
+  { id: 5, sender: 'Olivia Lee', receiver: 'Liam Rodriguez', amount: 75.25, status: 'Completed', paymentMode: 'Debit Card', date: '2025-09-15' },
+  { id: 6, sender: 'Ethan Martinez', receiver: 'Ava Garcia', amount: 15.00, status: 'Pending', paymentMode: 'Mobile App', date: '2025-09-15' },
+  { id: 7, sender: 'Isabella Hernandez', receiver: 'Mason Clark', amount: 210.00, status: 'Completed', paymentMode: 'Online Banking', date: '2025-09-14' },
+  { id: 8, sender: 'Noah Lewis', receiver: 'Charlotte King', amount: 45.80, status: 'Completed', paymentMode: 'Credit Card', date: '2025-09-14' },
+  { id: 9, sender: 'Mia Hill', receiver: 'William Scott', amount: 99.99, status: 'Completed', paymentMode: 'Debit Card', date: '2025-09-13' },
+  { id: 10, sender: 'Jacob Turner', receiver: 'Amelia Baker', amount: 5.50, status: 'Pending', paymentMode: 'Mobile App', date: '2025-09-13' },
+  { id: 11, sender: 'Evelyn Wright', receiver: 'Alexander Adams', amount: 85.00, status: 'Completed', paymentMode: 'Online Banking', date: '2025-09-12' },
+  { id: 12, sender: 'James White', receiver: 'Harper Nelson', amount: 17.50, status: 'Completed', paymentMode: 'Credit Card', date: '2025-09-12' },
+  { id: 13, sender: 'Abigail Green', receiver: 'Benjamin Carter', amount: 250.00, status: 'Failed', paymentMode: 'Mobile App', date: '2025-09-11' },
+  { id: 14, sender: 'Daniel Hughes', receiver: 'Chloe Hall', amount: 60.00, status: 'Completed', paymentMode: 'Debit Card', date: '2025-09-11' },
+  { id: 15, sender: 'Ella Morris', receiver: 'Henry Cook', amount: 35.00, status: 'Completed', paymentMode: 'Online Banking', date: '2025-09-10' },
+  { id: 16, sender: 'Joseph Bell', receiver: 'Grace Foster', amount: 180.00, status: 'Completed', paymentMode: 'Credit Card', date: '2025-09-10' },
+  { id: 17, sender: 'Madison Rivera', receiver: 'Samuel Long', amount: 90.50, status: 'Pending', paymentMode: 'Mobile App', date: '2025-09-09' },
+  { id: 18, sender: 'Sebastian Gray', receiver: 'Natalie Ward', amount: 11.11, status: 'Completed', paymentMode: 'Debit Card', date: '2025-09-09' },
+  { id: 19, sender: 'Victoria Parker', receiver: 'Andrew Reed', amount: 500.00, status: 'Completed', paymentMode: 'Online Banking', date: '2025-09-08' },
+  { id: 20, sender: 'Jack Cox', receiver: 'Lily Brooks', amount: 65.00, status: 'Failed', paymentMode: 'Credit Card', date: '2025-09-08' },
+  { id: 21, sender: 'Luna Peterson', receiver: 'Luke Ross', amount: 20.00, status: 'Completed', paymentMode: 'Mobile App', date: '2025-09-07' },
+  { id: 22, sender: 'Wyatt Butler', receiver: 'Aria Simmons', amount: 42.50, status: 'Completed', paymentMode: 'Debit Card', date: '2025-09-07' },
+  { id: 23, sender: 'Zoe Cooper', receiver: 'Carter Fisher', amount: 150.00, status: 'Completed', paymentMode: 'Online Banking', date: '2025-09-06' },
+  { id: 24, sender: 'Penelope Evans', receiver: 'Leo Jenkins', amount: 8.75, status: 'Pending', paymentMode: 'Credit Card', date: '2025-09-06' },
+  { id: 25, sender: 'Gabriel Bell', receiver: 'Nora Foster', amount: 225.00, status: 'Completed', paymentMode: 'Mobile App', date: '2025-09-05' },
 ];
 
 const SortIcon = ({ sortConfig, sortKey }) => {
@@ -56,7 +56,7 @@ const AnalyticsComponent = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     status: 'All',
-    parentMode: 'All',
+    paymentMode: 'All',
     date: '',
     amount: '',
   });
@@ -83,7 +83,7 @@ const AnalyticsComponent = () => {
       if (filters.status !== 'All' && row.status !== filters.status) return false;
 
       // Parent Mode filtering
-      if (filters.parentMode !== 'All' && row.parentMode !== filters.parentMode) return false;
+      if (filters.paymentMode !== 'All' && row.paymentMode !== filters.paymentMode) return false;
 
       // Date filtering
       if (filters.date && row.date !== filters.date) return false;
@@ -181,7 +181,7 @@ const AnalyticsComponent = () => {
     { label: 'Receiver', key: 'receiver' },
     { label: 'Amount', key: 'amount' },
     { label: 'Status', key: 'status' },
-    { label: 'Parent Mode', key: 'parentMode' },
+    { label: 'Payment Mode', key: 'paymentMode' },
     { label: 'Date', key: 'date' },
   ];
 
@@ -212,12 +212,12 @@ const AnalyticsComponent = () => {
               <option value="Failed">Failed</option>
             </select>
             <select
-              name="parentMode"
-              value={filters.parentMode}
+              name="paymentMode"
+              value={filters.paymentMode}
               onChange={handleFilterChange}
               className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="All">All Parent Modes</option>
+              <option value="All">All Payment Modes</option>
               <option value="Online Banking">Online Banking</option>
               <option value="Credit Card">Credit Card</option>
               <option value="Mobile App">Mobile App</option>
@@ -297,7 +297,7 @@ const AnalyticsComponent = () => {
                         {row.status}
                       </span>
                     </td>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{row.parentMode}</td>
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{row.paymentMode}</td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{row.date}</td>
                   </tr>
                 ))
