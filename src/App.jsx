@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { menus } from "./config/menu";
 import DashBoardLayout from "./layouts/DashBoardLayout";
 // Pages Imports
-import DashBoard from "./Pages/DashBoard";
+import DashBoard from "./Pages/Dashboard/DashBoard";
 import Sales from "./Pages/SaleDashBoard/Sales";
 import CreateInvoice from "./Pages/Invoice/CreateInvoice";
 

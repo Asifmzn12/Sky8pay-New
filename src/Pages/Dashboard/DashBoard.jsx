@@ -3,10 +3,10 @@ import { BsThreeDots, BsChevronRight } from 'react-icons/bs';
 import { IoIosSend } from "react-icons/io";
 
 // Import the chart components
-import WeeklyActivityChart from '../Charts/WeeklyActivityChart';
-import ExpenseStatisticsChart from '../Charts/ExpenseStatisticsChart';
-import BalanceHistoryChart from '../Charts/BalanceHistoryChart';
-import AnalyticsComponent from '../Charts/AnalyticsComponent';
+import WeeklyActivityChart from '../../Charts/WeeklyActivityChart';
+import ExpenseStatisticsChart from '../../Charts/ExpenseStatisticsChart';
+import BalanceHistoryChart from '../../Charts/BalanceHistoryChart';
+import AnalyticsComponent from '../../Charts/AnalyticsComponent';
 
 const Dashboard = () => {
   return (
