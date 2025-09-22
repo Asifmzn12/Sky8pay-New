@@ -15,6 +15,8 @@ const Sales = (apiId, startDate, endDate) => {
   useEffect(() => {
     apiFetchData();
     handleDateChange("today");
+
+    console.log("useeffect working")
   }, []);
 
   const apiFetchData = async () => {
@@ -110,10 +112,10 @@ const Sales = (apiId, startDate, endDate) => {
             <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100">Recent Transaction</h2>
           </div>
           <select className="form-control" onChange={handleApiChange} id="ddlapi">
-            <option key={0} value={0}>Select API</option>
+            <option value={0}>Select API</option>
             {apiOptions && Array.isArray(apiOptions.data) && apiOptions.data.length > 0 ?
               apiOptions.data.map((item) => (
-                <option value={item.id}>{item.name}</option>
+                <option key={item.id} value={item.id}>{item.name}</option>
               )) : (
                 <option>No Data Found</option>
               )}
@@ -134,7 +136,7 @@ const Sales = (apiId, startDate, endDate) => {
           )}
           {saledata && Array.isArray(saledata.data) && saledata.data.length > 0 ? (
             saledata.data.map((item, index) => (
-              <div className="col-sm-4 mb-3">
+              <div key={index} className="col-sm-4 mb-3">
                 <Card
                   title={item.metric}
                   value={new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(item.value)}
