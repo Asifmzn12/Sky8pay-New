@@ -11,7 +11,7 @@ export const BindUserBankList = async (payload = {}) => {
 }
 
 export const SaveUpdateBankMaster = async (payload = {}) => {
-    try {
+    try {                
         const response = await api.post("/Masters/SaveUpdateBankMaster", payload);
         return response.data;
     } catch (error) {

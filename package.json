@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@react-spring/web": "^10.0.2",
     "@tailwindcss/vite": "^4.1.13",
+    "antd": "^5.27.4",
     "axios": "^1.12.2",
     "dayjs": "^1.11.18",
     "framer-motion": "^12.23.16",
