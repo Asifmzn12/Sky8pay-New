@@ -61,7 +61,7 @@ const PendingFundRequest = () => {
         fetchInitialData();
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -76,7 +76,7 @@ const PendingFundRequest = () => {
         });
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -91,7 +91,7 @@ const PendingFundRequest = () => {
       const _statusresult = await BindMasterData({ type: "status" });
       setStatusMasterDrowdown(_statusresult);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
       setLoading(false);
@@ -104,7 +104,7 @@ const PendingFundRequest = () => {
       const _result = await BindFundRequest({ userId: selecteduser, roleId: 0, startDate: daterange?.[0]?.format("YYYY-MM-DD"), endDate: daterange?.[1]?.format("YYYY-MM-DD"), pageNo: 0, pageSize: 100, status: StatusEnum.Pending });
       setFundrequest(_result);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoading(false);
       setLoadingTable(false);
@@ -151,7 +151,7 @@ const PendingFundRequest = () => {
         Swal.fire("Error!", _result.message, "error");
       }
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
 

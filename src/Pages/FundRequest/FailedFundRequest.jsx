@@ -25,7 +25,7 @@ const FailedFundRequest = () => {
         fetchInitialData();
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -46,7 +46,7 @@ const FailedFundRequest = () => {
         });
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -58,7 +58,7 @@ const FailedFundRequest = () => {
       const _result = await BindUserListByRoleId({ roleId: 0 });
       setUserListValue(_result);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
       setLoading(false);
@@ -69,7 +69,7 @@ const FailedFundRequest = () => {
       const _result = await BindFundRequest({ userId: selecteduser, roleId: 0, startDate: daterange?.[0]?.format("YYYY-MM-DD"), endDate: daterange?.[1]?.format("YYYY-MM-DD"), pageNo: 0, pageSize: 100, status: StatusEnum.Failed });
       setFundrequest(_result);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoading(false);
       setLoadingTable(false);

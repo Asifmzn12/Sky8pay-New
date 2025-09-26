@@ -27,7 +27,7 @@ const LoanLedgerReport = () => {
         fetchInitialData();
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -41,7 +41,7 @@ const LoanLedgerReport = () => {
         BindLoanLedgerList({ dateRange: null, userId: 0, statusId: 0 });
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -58,7 +58,7 @@ const LoanLedgerReport = () => {
       const _statusresult = await BindMasterData({ type: "status" });
       setStatusMasterDrowdown(_statusresult);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
       setLoading(false);
@@ -102,7 +102,7 @@ const LoanLedgerReport = () => {
       console.log(_result);
       setLoanLedgerList(_result);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoadingTable(false);
     }

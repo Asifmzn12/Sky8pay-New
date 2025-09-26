@@ -84,7 +84,7 @@ const BankMaster = () => {
 
       await BindUserBanktableList(0);
     } catch (err) {
-      Swal.fire("warning!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoadingForm(false);
       setLoadingTable(false);
@@ -97,7 +97,7 @@ const BankMaster = () => {
       const data = await BindUserRole();
       setUserRoleList(data);
     } catch (err) {
-      Swal.fire("warning!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
 
     }
@@ -112,7 +112,7 @@ const BankMaster = () => {
       const userdataList = await BindUserListByRoleId({ roleId: roleId });
       setUserList(userdataList);
     } catch (err) {
-      Swal.fire("warning!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
 
     }
@@ -124,7 +124,7 @@ const BankMaster = () => {
       const userbanklist = await BindUserBankList({ id: Id });
       setUserBankList(userbanklist);
     } catch (err) {
-      Swal.fire("warning!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoadingTable(false);
     }
@@ -168,7 +168,7 @@ const BankMaster = () => {
             Swal.fire("Error!", res.message, "error");
           }
         } catch (err) {
-          Swal.fire("Error!", "Failed to delete bank details.", "error");
+          Swal.fire("warning!", err.message, "warning");
         }
       }
     });
@@ -193,7 +193,7 @@ const BankMaster = () => {
         Swal.fire("Error!", res.message, "error");
       }
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
   };
 

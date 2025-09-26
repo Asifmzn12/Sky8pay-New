@@ -25,30 +25,25 @@ const SuccessFundRequest = () => {
         fetchInitialData();
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
     })();
   }, []);
   // bind success fund
-  useEffect(() => {    
+  useEffect(() => {
     (async () => {
       try {
         BindSuccessFundRequest({
-          userId: 0,
-          roleId: 0,
-          startDate: null,
-          endDate: null,
-          pageNo: 0,
-          pageSize: 100,
-          status: StatusEnum.Success
+          userId: 0, roleId: 0, startDate: null,
+          endDate: null, pageNo: 0, pageSize: 100, status: StatusEnum.Success
         });
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
-        setLoading(false);        
+        setLoading(false);
       }
     })();
   }, []);
@@ -58,7 +53,7 @@ const SuccessFundRequest = () => {
       const _result = await BindUserListByRoleId({ roleId: 0 });
       setUserListValue(_result);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
       setLoading(false);
@@ -69,7 +64,7 @@ const SuccessFundRequest = () => {
       const _result = await BindFundRequest({ userId: selecteduser, roleId: 0, startDate: daterange?.[0]?.format("YYYY-MM-DD"), endDate: daterange?.[1]?.format("YYYY-MM-DD"), pageNo: 0, pageSize: 100, status: StatusEnum.Success });
       setFundrequest(_result);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoading(false);
       setLoadingTable(false);

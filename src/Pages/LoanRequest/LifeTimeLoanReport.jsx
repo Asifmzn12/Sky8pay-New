@@ -8,7 +8,7 @@ const LifeTimeLoanReport = () => {
   const [userList, setUserListValue] = useState([]);
   const [loading, setLoading] = useState(true);
   const [LifeTimeLoanList, setLifeTimeLoanList] = useState([]);
-const [loadingTable, setLoadingTable] = useState(true);
+  const [loadingTable, setLoadingTable] = useState(true);
 
   // bind initial data
   useEffect(() => {
@@ -17,7 +17,7 @@ const [loadingTable, setLoadingTable] = useState(true);
         fetchInitialData();
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -32,7 +32,7 @@ const [loadingTable, setLoadingTable] = useState(true);
         BindLifetimeReport(0);
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -45,7 +45,7 @@ const [loadingTable, setLoadingTable] = useState(true);
       const _result = await BindUserListByRoleId({ roleId: 0 });
       setUserListValue(_result);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
       setLoading(false);
@@ -55,17 +55,17 @@ const [loadingTable, setLoadingTable] = useState(true);
 
   const BindLifetimeReport = async (UserId = 0) => {
     try {
-      const _result = await UserLifeTimeLoanReport({ userId: UserId });      
+      const _result = await UserLifeTimeLoanReport({ userId: UserId });
       setLifeTimeLoanList(_result);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
-setLoadingTable(false);
+      setLoadingTable(false);
     }
   }
 
   const BindDataUserChange = (e) => {
-    const userId = parseInt(e.target.value);    
+    const userId = parseInt(e.target.value);
     BindLifetimeReport(userId);
   }
 
@@ -119,7 +119,7 @@ setLoadingTable(false);
                     ))
                   ) : LifeTimeLoanList && Array.isArray(LifeTimeLoanList.data) && LifeTimeLoanList.data.length > 0 ? (
                     LifeTimeLoanList.data.map((row, index) => (
-                      <tr key={index+1}>
+                      <tr key={index + 1}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{index + 1}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.Name}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.RoleName}</td>

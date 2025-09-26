@@ -54,7 +54,7 @@ const LoanRecovered = () => {
         fetchInitialData();
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -68,7 +68,7 @@ const LoanRecovered = () => {
       setUserListValue(_result);
 
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
       setLoading(false);
@@ -81,7 +81,7 @@ const LoanRecovered = () => {
       setUserLoanDetails(_result);
       return _result;
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoading(false);
     }
@@ -98,7 +98,7 @@ const LoanRecovered = () => {
         Swal.fire("Error!", "The loan amount you entered exceeds the pending loan amount. Please enter a valid amount.", "error");
       }
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoading(false);
     }
@@ -120,7 +120,7 @@ const LoanRecovered = () => {
         Swal.fire("Error!", _result.message, "error");
       }
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
 
     }

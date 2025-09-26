@@ -58,7 +58,7 @@ const LoanRequestReport = () => {
         fetchInitialData();
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -74,7 +74,7 @@ const LoanRequestReport = () => {
           pageSize: 100, status: StatusEnum.Pending, search: ""
         });
       } catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
 
       }
@@ -89,7 +89,7 @@ const LoanRequestReport = () => {
       const _statusresult = await BindMasterData({ type: "status" });
       setStatusMasterDrowdown(_statusresult);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
       setLoading(false);
@@ -109,8 +109,8 @@ const LoanRequestReport = () => {
         pageSize: 100, status: StatusEnum.Pending, search: data.search
       });
       setPendingLoanList(_result);
-    } catch (error) {
-      Swal.fire("Error!", err.message, "error");
+    } catch (err) {
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoading(false);
     }
@@ -139,7 +139,7 @@ const LoanRequestReport = () => {
         Swal.fire("Error!", _result.message, "error");
       }
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
 
     }

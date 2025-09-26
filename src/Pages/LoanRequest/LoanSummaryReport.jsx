@@ -27,7 +27,7 @@ const LoanSummaryReport = () => {
         fetchInitialData();
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -43,7 +43,7 @@ const LoanSummaryReport = () => {
         });
       }
       catch (err) {
-        Swal.fire("Error!", err.message, "error");
+        Swal.fire("warning!", err.message, "warning");
       } finally {
         setLoading(false);
       }
@@ -60,7 +60,7 @@ const LoanSummaryReport = () => {
       const _statusresult = await BindMasterData({ type: "status" });
       setStatusMasterDrowdown(_statusresult);
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     }
     finally {
       setLoading(false);
@@ -88,7 +88,7 @@ const LoanSummaryReport = () => {
       setLoanSummaryList(_result);
 
     } catch (err) {
-      Swal.fire("Error!", err.message, "error");
+      Swal.fire("warning!", err.message, "warning");
     } finally {
       setLoadingTable(false);
     }
