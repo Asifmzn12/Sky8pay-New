@@ -2,6 +2,7 @@ import api from "./api";
 
 export const GetLoanLedger=async(payload={})=>{
     try{
+        console.log(payload);
         const response=await api.post("/ManageLoan/GetLoanLedger",payload);
         return response.data;
     }catch(error){

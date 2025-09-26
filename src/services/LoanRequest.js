@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const BindLoanRequest = async (payload = {}) => {
-    try {
+    try {        
         const response = await api.post("/ManageLoan/GetUserLoanRequest", payload);
         return response.data;
     } catch (error) {

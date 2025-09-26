@@ -13,6 +13,7 @@ import { BindFundRequest } from "../../services/FundRequest";
 const SuccessFundRequest = () => {
   const [dateRange, setDateRange] = useState([]);
   const [userList, setUserListValue] = useState([]);
+  const [loadingTable, setLoadingTable] = useState(true);
   const [loading, setLoading] = useState(true);
   const [fundrequest, setFundrequest] = useState([]);
   const [selectedUser, setSelectedUser] = useState(0);
@@ -31,7 +32,7 @@ const SuccessFundRequest = () => {
     })();
   }, []);
   // bind success fund
-  useEffect(() => {
+  useEffect(() => {    
     (async () => {
       try {
         BindSuccessFundRequest({
@@ -47,7 +48,7 @@ const SuccessFundRequest = () => {
       catch (err) {
         Swal.fire("Error!", err.message, "error");
       } finally {
-        setLoading(false);
+        setLoading(false);        
       }
     })();
   }, []);
@@ -71,6 +72,7 @@ const SuccessFundRequest = () => {
       Swal.fire("Error!", err.message, "error");
     } finally {
       setLoading(false);
+      setLoadingTable(false);
     }
   }
 
@@ -81,7 +83,7 @@ const SuccessFundRequest = () => {
   }
 
 
-  if (loading) return <p>Loading..........</p>
+  // if (loading) return <p>Loading..........</p>
 
   return (
     <div className="py-4 sm:py-6 md:py-8 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-white transition-colors duration-300">
@@ -121,7 +123,7 @@ const SuccessFundRequest = () => {
                   <option disabled>No Data Found</option>
                 )}
             </select>
-            <input type="text" placeholder='Search' className="block w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border rounded-md text-gray-900 dark:text-white" />
+            <input type="text" placeholder='Search' className="block w-full sm:w-48 px-4 py-2 bg-gray-50 dark:bg-gray-700 border rounded-md text-gray-900 dark:text-white" />
             <button
               className="py-2 px-4 rounded-full text-sm font-medium bg-blue-600 text-white hover:bg-blue-700"
               onClick={() => BindSuccessFundRequest(dateRange, selectedUser)}
@@ -145,7 +147,7 @@ const SuccessFundRequest = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                  {loading ? (
+                  {loadingTable ? (
                     Array.from({ length: 3 }).map((_, index) => (
                       <tr key={index}>
                         {Array.from({ length: 15 }).map((_, colIndex) => (
@@ -181,7 +183,7 @@ const SuccessFundRequest = () => {
                     ))
                   ) : (
                     <tr key={0}>
-                      <td colSpan="6" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">No bank details found.</td>
+                      <td colSpan="6" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">No data found.</td>
                     </tr>
                   )}
                 </tbody>

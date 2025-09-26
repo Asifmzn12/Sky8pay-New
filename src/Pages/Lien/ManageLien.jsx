@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ManageLien() {
+const ManageLien=()=> {
   return (
     <div>ManageLien</div>
   )
