@@ -11,6 +11,7 @@ import success from '../../assests/StatusSvgIcon/Rtsuccess.svg';
 import complaintRaise from '../../assests/icon/Rtraise.svg';
 import complaintTicket from '../../assests/icon/Rtticket.svg';
 import { BsDownload, BsEye, BsReceipt } from 'react-icons/bs';
+import Pagination from '../../utils/Pagination';
 
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -33,8 +34,9 @@ const Modal = ({ isOpen, onClose, children }) => {
 };
 
 const PayoutReport = () => {
+  const rowsPerPage = 50;
   const [dateRange, setDateRange] = useState([]);
-  const [searchValue, setsearchValue] = useState([]);
+  const [searchValue, setsearchValue] = useState("");
   const [userList, setUserListValue] = useState([]);
   const [loadingTable, setLoadingTable] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -43,7 +45,11 @@ const PayoutReport = () => {
   const [selectedUser, setSelectedUser] = useState(0);
   const [selectedApi, setSelectedApi] = useState(0);
   const [isReceiptModalOpen, setIsReceiptModalOpen] = useState(false);
+  const [isCallBackModalOpen, setIsCallBackModalOpen] = useState(false);
+  const [isCheckStatusModalOpen, setIsCheckStatusModalOpen] = useState(false);
   const [rowPayoutData, setRowPayoutData] = useState(null);
+  const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // bind initial data
   useEffect(() => {
@@ -63,7 +69,7 @@ const PayoutReport = () => {
   useEffect(() => {
     (async () => {
       try {
-        BindPayoutReport();
+        BindPayoutReport({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: selectedApi, searchValue: "", currentPage: currentPage });
       }
       catch (err) {
         Swal.fire("warning!", err.message, "warning");
@@ -71,7 +77,7 @@ const PayoutReport = () => {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [currentPage]);
 
   const fetchInitialData = async () => {
     try {
@@ -88,14 +94,23 @@ const PayoutReport = () => {
     }
   }
 
-  const BindPayoutReport = async (dateRange, selectedUser, selectedApi, Search) => {
+  const totalPages = Math.ceil(totalCount / rowsPerPage);
+
+  const BindPayoutReport = async ({ dateRange, selectedUser, selectedApi, searchValue, currentPage }) => {
     try {
       const _result = await GetPayoutReports({
         userId: selectedUser, startDate: dateRange?.[0]?.format("YYYY-MM-DD"),
-        endDate: dateRange?.[1]?.format("YYYY-MM-DD"), apiId: selectedApi, status: StatusEnum.Success, search: Search,
-        pageNo: 0, pageSize: 100, txnFrom: 0, mode: 0
+        endDate: dateRange?.[1]?.format("YYYY-MM-DD"), apiId: selectedApi, status: StatusEnum.Success, search: searchValue,
+        pageNo: currentPage, pageSize: rowsPerPage, txnFrom: 0, mode: 0
       });
-      setPayoutReportList(_result);
+      if (_result && Array.isArray(_result.data) && _result.data.length > 0) {
+        setPayoutReportList(_result);
+        setTotalCount(_result.data[0].TotalRecord);
+      }
+      else {
+        setPayoutReportList([]);
+        setTotalCount(0);
+      }
     } catch (err) {
       Swal.fire("warning!", err.message, "warning");
     } finally {
@@ -107,22 +122,40 @@ const PayoutReport = () => {
   const BindDataUserChange = (e) => {
     const userId = parseInt(e.target.value);
     setSelectedUser(userId);
-    BindPayoutReport(dateRange, userId, selectedApi, searchValue);
+    BindPayoutReport({ dateRange: dateRange, selectedUser: userId, selectedApi: selectedApi, searchValue: "", currentPage: currentPage });
   }
 
 
   const BindDataApiChange = (e) => {
     const apiId = parseInt(e.target.value);
     setSelectedApi(apiId);
-    BindPayoutReport(dateRange, selectedUser, apiId, searchValue);
+    BindPayoutReport({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: apiId, searchValue: "", currentPage: currentPage });
   }
 
+  const DownloadPayoutInvoice = async (UniqueId) => {
+    try {
+      const _result = await GetPayoutInvoiceLink({ SystemUniqueId: UniqueId });
+      if(_result&&_result.data){
+      const link = document.createElement("a");
+      link.href = _result.data;
+      link.target = "_blank";
+      link.download = _result.data;
+      link.click();
+      }else{
+        Swal.fire("Error!", "Invoice generation failed", "error");
+      }
+    } catch (err) {
+      Swal.fire("warning!", err.message, "warning");
+    } finally {
+
+    }
+  }
 
   return (
     <div className="py-4 sm:py-6 md:py-8 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 md:p-10">
-          <h1 className="text-1xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">Success Fund Request</h1>
+          <h1 className="text-1xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">Success Payout Report</h1>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-8 p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
             <RangePicker
@@ -169,8 +202,9 @@ const PayoutReport = () => {
                   <option disabled>No Data Found</option>
                 )}
             </select>
-            <input type="text" onChange={(values) => setsearchValue(values)} placeholder='Search' className="block w-full sm:w-48 px-4 py-2 bg-gray-50 dark:bg-gray-700 border rounded-md text-gray-900 dark:text-white" />
+            <input type="text" onChange={(e) => setsearchValue(e.target.value)} value={searchValue} placeholder='Search' className="block w-full sm:w-48 px-4 py-2 bg-gray-50 dark:bg-gray-700 border rounded-md text-gray-900 dark:text-white" />
             <button
+              onClick={() => BindPayoutReport({ dateRange, selectedUser, selectedApi, searchValue, currentPage })}
               className="py-2 px-4 rounded-full text-sm font-medium bg-blue-600 text-white hover:bg-blue-700">
               Search
             </button>
@@ -179,6 +213,7 @@ const PayoutReport = () => {
 
           <div>
             {/* <h2 className="text-2xl font-semibold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Bank Account List</h2> */}
+            {totalPages ? <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} /> : ""}
             <div className="overflow-x-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-700">
@@ -206,7 +241,7 @@ const PayoutReport = () => {
                       <tr key={row.Id}>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{index + 1}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.UserName}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.CompanyName}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white max-w-[140px] truncate" title={row.CompanyName}>{row.CompanyName}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.MobileNo}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.ApiName}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.CreatedDate}</td>
@@ -220,7 +255,7 @@ const PayoutReport = () => {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.BankPayoutId}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.TransactionAmount)}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.AccountHolderName}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white max-w-[140px] truncate" title={row.AccountHolderName}>{row.AccountHolderName}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.AccountNo}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.IfscCode}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.UpiId}</td>
@@ -244,11 +279,11 @@ const PayoutReport = () => {
                             )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.TransactionFrom}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium"><BsEye size={20} color='black' onClick={() => { setPayoutTrData(item); setIsCallBackOpen(true) }} /> </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium"><BsEye size={20} color='black' onClick={() => { setPayoutTrData(item); setIsCheckStatusOpen(true) }} /></td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.IpAddress}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium"><BsEye size={20} color='black' onClick={() => { setRowPayoutData(row); setIsCallBackModalOpen(true) }} /> </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium"><BsEye size={20} color='black' onClick={() => { setRowPayoutData(row); setIsCheckStatusModalOpen(true) }} /></td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white max-w-[140px] truncate" title={row.IpAddress}>{row.IpAddress}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <BsDownload size={20} color='black' onClick={() => DownloadPayoutInvoice(row)} />
+                          <BsDownload size={20} color='black' onClick={() => DownloadPayoutInvoice(row.SystemUniqueId)} />
                         </td>
                       </tr>
                     ))
@@ -260,29 +295,58 @@ const PayoutReport = () => {
                 </tbody>
               </table>
             </div>
+            {totalPages ? <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} /> : ""}
           </div>
         </div>
       </div>
       {/* Receipt start */}
       <Modal isOpen={isReceiptModalOpen} onClose={() => setIsReceiptModalOpen(false)}>
         <h2 className="text-2xl font-semibold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Receipt</h2>
-        <div className="flex flex-col sm:flex-row gap-4 mb-8 p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
-        <label>Status</label>
-        <label>Status</label>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-4 mb-8 p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"></div>
-        <label>Payment Date</label>
-
-        <label>Amount</label>
-        <label>UTR No</label>
-        <label>Name</label>
-        <label>Account No</label>
-        <label>Bank Name</label>
-        <label>IFSC</label>              
-        <label>Payment Invoice no</label>        
-        <label>Reference Id</label>
+        {[
+          { label: "Status", value: rowPayoutData?.STATUS },
+          { label: "Payment Date", value: rowPayoutData?.CreatedDate },
+          { label: "Amount", value: new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(rowPayoutData?.TransactionAmount) },
+          { label: "UTR", value: rowPayoutData?.BankPayoutId },
+          { label: "Name", value: rowPayoutData?.AccountHolderName },
+          { label: "Account No", value: rowPayoutData?.AccountNo },
+          { label: "Bank Name", value: rowPayoutData?.BankName },
+          { label: "IFSC", value: rowPayoutData?.IfscCode },
+          { label: "Payment Invoice no", value: rowPayoutData?.SystemUniqueId },
+          { label: "Reference Id", value: rowPayoutData?.ReferenceId },
+        ].map((item, index) => (
+          <div key={index} className="flex justify-between p-4">
+            <span className="text-gray-600 font-medium">{item.label}</span>
+            <span className="text-gray-800">{item.value}</span>
+          </div>
+        ))}
       </Modal>
       {/* Receipt end */}
+
+      {/* CallBack start */}
+      <Modal isOpen={isCallBackModalOpen} onClose={() => setIsCallBackModalOpen(false)}>
+        <h2 className="text-2xl font-semibold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">CallBack Details</h2>
+        <div key={1} className="flex justify-between p-4">
+          <span className="text-gray-600 font-medium">Date & Time</span>
+          <span className="text-gray-800">{rowPayoutData?.CallBackDateTime}</span>
+        </div>
+        <div key={2} className="flex justify-between p-4">
+          <span className="text-gray-800" style={{ lineBreak: "anywhere" }}>{rowPayoutData?.CallBackResponse ? rowPayoutData?.CallBackResponse : "No Response Availabel"}</span>
+        </div>
+      </Modal>
+      {/* CallBack end */}
+
+      {/* CallBack start */}
+      <Modal isOpen={isCheckStatusModalOpen} onClose={() => setIsCheckStatusModalOpen(false)}>
+        <h2 className="text-2xl font-semibold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Check Status Details</h2>
+        <div key={1} className="flex justify-between p-4">
+          <span className="text-gray-600 font-medium">Date & Time</span>
+          <span className="text-gray-800">{rowPayoutData?.CheckStatusDateTime}</span>
+        </div>
+        <div key={2} className="flex justify-between p-4">
+          <span className="text-gray-800" style={{ lineBreak: "anywhere" }}>{rowPayoutData?.CheckStatusResponse ? rowPayoutData?.CheckStatusResponse : "No Response Availabel"}</span>
+        </div>
+      </Modal>
+      {/* CallBack end */}
     </div>
   )
 }

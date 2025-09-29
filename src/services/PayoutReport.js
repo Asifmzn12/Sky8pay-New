@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const GetPayoutReports = async (payload = {}) => {
-    try {
+    try {        
         const response = await api.post("/Payout/GetPayoutReport", payload);
         return response.data;
     } catch (error) {
@@ -31,7 +31,7 @@ export const CheckStatusTransaction = async (payload = {}) => {
 }
 
 export const GetPayoutLedger = async (payload = {}) => {
-    try {        
+    try {                
         const response = await api.post("/Payout/PayoutLedger", payload);
         return response.data;
     } catch (error) {
