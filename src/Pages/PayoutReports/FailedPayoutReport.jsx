@@ -98,6 +98,7 @@ const FailedPayoutReport = () => {
   const totalPages = Math.ceil(totalCount / rowsPerPage);
 
   const BindPayoutReport = async ({ dateRange, selectedUser, selectedApi, searchValue, currentPage }) => {
+    setLoadingTable(true);
     try {
       const _result = await GetPayoutReports({
         userId: selectedUser, startDate: dateRange?.[0]?.format("YYYY-MM-DD"),

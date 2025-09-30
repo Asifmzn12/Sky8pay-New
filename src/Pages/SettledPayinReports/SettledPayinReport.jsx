@@ -97,6 +97,7 @@ const SettledPayinReport = () => {
   const totalPages = Math.ceil(totalCount / rowsPerPage);
 
   const BindSettledPayinReport = async ({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: selectedApi, searchValue: searchValue, currentPage: currentPage }) => {
+    setLoadingTable(true);
     try {
       const _result = await GetsettledPayinReport({
         userId: selectedUser, startDate: dateRange?.[0]?.format("YYYY-MM-DD"), endDate: dateRange?.[1]?.format("YYYY-MM-DD"),

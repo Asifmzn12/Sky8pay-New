@@ -72,7 +72,7 @@ const SettledLedgerPayinReport = () => {
       setApiMasterByServiceName(_apiresult);
 
       const _statusresult = await BindMasterData({ type: "status" });
-            setStatusMasterDrowdown(_statusresult);
+      setStatusMasterDrowdown(_statusresult);
     } catch (err) {
       Swal.fire("warning!", err.message, "warning");
     }
@@ -82,12 +82,13 @@ const SettledLedgerPayinReport = () => {
   }
 
   const totalPages = Math.ceil(totalCount / rowsPerPage);
-  const BindPayinledgerReport = async ({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: selectedApi,selectedStatus:selectedStatus, searchValue: searchValue, currentPage: currentPage }) => {
+  const BindPayinledgerReport = async ({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: selectedApi, selectedStatus: selectedStatus, searchValue: searchValue, currentPage: currentPage }) => {
+    setLoadingTable(true);
     try {
       const _result = await GetsettledPayinLedger({
-        userId: selectedUser,        startDate: dateRange?.[0]?.format("YYYY-MM-DD"),        endDate: dateRange?.[1]?.format("YYYY-MM-DD"),
-        apiId: selectedApi,        status: selectedStatus,        search: searchValue,        transactionTypeId: 0,
-        pageNo: currentPage,        pageSize: rowsPerPage
+        userId: selectedUser, startDate: dateRange?.[0]?.format("YYYY-MM-DD"), endDate: dateRange?.[1]?.format("YYYY-MM-DD"),
+        apiId: selectedApi, status: selectedStatus, search: searchValue, transactionTypeId: 0,
+        pageNo: currentPage, pageSize: rowsPerPage
       });
       if (_result && Array.isArray(_result.data) && _result.data.length > 0) {
         setPayinReportList(_result);
@@ -108,17 +109,17 @@ const SettledLedgerPayinReport = () => {
   const BindDataUserChange = (e) => {
     const userId = parseInt(e.target.value);
     setSelectedUser(userId);
-    BindPayinledgerReport({ dateRange: dateRange, selectedUser: userId, selectedApi: selectedApi,selectedStatus:selectedStatus, searchValue: "", currentPage: currentPage });
+    BindPayinledgerReport({ dateRange: dateRange, selectedUser: userId, selectedApi: selectedApi, selectedStatus: selectedStatus, searchValue: "", currentPage: currentPage });
   }
 
 
   const BindDataApiChange = (e) => {
     const apiId = parseInt(e.target.value);
     setSelectedApi(apiId);
-    BindPayinledgerReport({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: apiId,selectedStatus:selectedStatus, searchValue: "", currentPage: currentPage });
+    BindPayinledgerReport({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: apiId, selectedStatus: selectedStatus, searchValue: "", currentPage: currentPage });
   }
 
-    const BindDataStatusChange = (e) => {
+  const BindDataStatusChange = (e) => {
     const statusId = parseInt(e.target.value);
     setSelectedStatus(statusId);
     BindPayinledgerReport({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: selectedApi, selectedStatus: statusId, searchValue: "", currentPage: currentPage });
@@ -175,7 +176,7 @@ const SettledLedgerPayinReport = () => {
                   <option disabled>No Data Found</option>
                 )}
             </select>
-              <select
+            <select
               className="w-full sm:w-48 py-2 pl-4 pr-10 rounded-xl bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
               onChange={BindDataStatusChange}
             >

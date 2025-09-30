@@ -77,6 +77,7 @@ const PayoutLedger = () => {
 
   const totalPages = Math.ceil(totalCount / rowsPerPage);
   const BindPayoutLedger = async ({ dateRange, selectedApi, selectedUser, currentPage, selectedStatus, searchValue }) => {
+    setLoadingTable(true);
     try {
       const _result = await GetPayoutLedger({
         userId: selectedUser, transactionTypeId: 0, startDate: dateRange?.[0]?.format("YYYY-MM-DD"),

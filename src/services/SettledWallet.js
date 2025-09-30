@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const GetSettledWallet = async (payload = {}) => {
-    try {        
+    try {                
         const response = await api.post("/Accounting/GetSettledWallet", payload);
         return response.data;
     } catch (error) {

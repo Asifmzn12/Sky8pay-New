@@ -71,6 +71,7 @@ const GarbagePayout = () => {
   const totalPages = Math.ceil(totalCount / rowsPerPage);
 
   const BindGarbagePayout = async ({ dateRange: dateRange, selectedUser: selectedUser, selectedApi: selectedApi, currentPage: currentPage }) => {
+    setLoadingTable(true);
     try {
       const _result = await GetGarbagePayout({
         startDate: dateRange?.[0]?.format("YYYY-MM-DD"), endDate: dateRange?.[1]?.format("YYYY-MM-DD"), userId: selectedUser,
