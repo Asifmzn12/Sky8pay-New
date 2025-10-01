@@ -4,21 +4,16 @@ import "antd/dist/reset.css"; // Ant Design styles
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import { BindAPIListByServiceName } from '../../services/Commonapi';
-import { GetApiFund, GetApiFundLedger } from '../../services/ManageAPI';
-import Pagination from '../../utils/Pagination';
+import { GetApiFund } from '../../services/ManageAPI';
 const { RangePicker } = DatePicker;
 
-
-const APIFundLedger = () => {
-    const rowsPerPage = 50;
+const APIwiseFund = () => {
     const [dateRange, setDateRange] = useState([]);
     const [ApiMasterByServiceName, setApiMasterByServiceName] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [loadingTable, setLoadingTable] = useState(true);
-    const [ApiFundLedger, setApiFundLedger] = useState([]);
+    const [apiFund, setapiFund] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [selectedApi, setSelectedApi] = useState(0);
-    const [totalCount, setTotalCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
 
     // bind initial data
     useEffect(() => {
@@ -38,7 +33,7 @@ const APIFundLedger = () => {
     useEffect(() => {
         (async () => {
             try {
-                BindApiFundLedger({ dateRange: dateRange, selectedApi: selectedApi, currentPage: currentPage });
+                BindApiFund({ dateRange: dateRange, selectedApi: selectedApi });
             }
             catch (err) {
                 Swal.fire("warning!", err.message, "warning");
@@ -46,7 +41,7 @@ const APIFundLedger = () => {
                 setLoading(false);
             }
         })();
-    }, [currentPage]);
+    }, []);
 
     const fetchInitialData = async () => {
         try {
@@ -59,42 +54,35 @@ const APIFundLedger = () => {
             setLoading(false);
         }
     }
-    const totalPages = Math.ceil(totalCount / rowsPerPage);
 
-    const BindApiFundLedger = async ({dateRange, selectedApi, currentPage}) => {
+    const BindApiFund = async ({ dateRange, selectedApi }) => {
         setLoadingTable(true);
         try {
-            const _result = await GetApiFundLedger({
+            const _result = await GetApiFund({
                 startDate: dateRange?.[0]?.format("YYYY-MM-DD"), endDate: dateRange?.[1]?.format("YYYY-MM-DD"),
-                apiId: selectedApi, pageNo: currentPage, pageSize: rowsPerPage
+                apiId: selectedApi
             });
-            if (_result && Array.isArray(_result.data) && _result.data.length > 0) {
-                setApiFundLedger(_result);
-                setTotalCount(_result.data[0].TotalRecord);
-            } else {
-                setApiFundLedger([]);
-                setTotalCount(0);
-            }
+            setapiFund(_result);
         } catch (err) {
             Swal.fire("warning!", err.message, "warning");
-        }
-        finally {
+        } finally {
             setLoadingTable(false);
         }
     }
 
 
+
     const BindDataApiChange = (e) => {
         const apiId = parseInt(e.target.value);
         setSelectedApi(apiId);
-        BindApiFundLedger({ dateRange: dateRange, selectedApi: apiId, currentPage: currentPage });
+        BindApiFund({ dateRange: dateRange, selectedApi: apiId });
     }
 
     return (
         <div className="py-4 sm:py-6 md:py-8 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-white transition-colors duration-300">
             <div className="max-w-7xl mx-auto">
                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 md:p-10">
-                    <h1 className="text-1xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">API Fund Ledger</h1>
+                    <h1 className="text-1xl font-bold mb-8 text-center text-blue-600 dark:text-blue-400">API Fund</h1>
 
                     <div className="flex flex-col sm:flex-row gap-4 mb-8 p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
                         <RangePicker
@@ -130,7 +118,7 @@ const APIFundLedger = () => {
                         </select>
                         <input type="text" placeholder='Search' className="block w-full sm:w-48 px-4 py-2 bg-gray-50 dark:bg-gray-700 border rounded-md text-gray-900 dark:text-white" />
                         <button
-                            onClick={() => BindApiFundLedger({ dateRange, selectedApi, currentPage })}
+                            onClick={() => BindApiFund({ dateRange, selectedApi })}
                             className="py-2 px-4 rounded-full text-sm font-medium bg-blue-600 text-white hover:bg-blue-700">
                             Search
                         </button>
@@ -139,12 +127,11 @@ const APIFundLedger = () => {
 
                     <div>
                         {/* <h2 className="text-2xl font-semibold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Bank Account List</h2> */}
-                        {totalPages ? <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} /> : ""}
                         <div className="overflow-x-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
                             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                 <thead className="bg-gray-50 dark:bg-gray-700">
                                     <tr>
-                                        {['#', 'API Name', 'User Name', 'Company Name', 'Mobile No', 'Date & Time', 'Open', 'Amount', 'Surcharge', 'GST', 'Payable', 'Closed', 'Unique Id', 'Comment', 'Manual Comment'].map(header => (
+                                        {['#', 'API Name', 'Collected Amount', 'Debited Amount', 'Remaining Amount', 'Date & Time', 'Last Comment'].map(header => (
                                             <th key={header} className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                                 {header}
                                             </th>
@@ -155,31 +142,23 @@ const APIFundLedger = () => {
                                     {loadingTable ? (
                                         Array.from({ length: 3 }).map((_, index) => (
                                             <tr key={index}>
-                                                {Array.from({ length: 15 }).map((_, colIndex) => (
+                                                {Array.from({ length: 7 }).map((_, colIndex) => (
                                                     <td key={colIndex} className="px-6 py-4 whitespace-nowrap">
                                                         <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full animate-pulse"></div>
                                                     </td>
                                                 ))}
                                             </tr>
                                         ))
-                                    ) : ApiFundLedger && Array.isArray(ApiFundLedger.data) && ApiFundLedger.data.length > 0 ? (
-                                        ApiFundLedger.data.map((row, index) => (
+                                    ) : apiFund && Array.isArray(apiFund.data) && apiFund.data.length > 0 ? (
+                                        apiFund.data.map((row, index) => (
                                             <tr key={index + 1}>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{index + 1}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.ApiName}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.UserName}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.CompanyName}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.MobileNo}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.TotalCredit)}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-red-600 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.TotalDebit)}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.RemaningAmount)}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.CreatedDate}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.OpeningAmount)}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.Amount)}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.Surcharge)}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.Gst)}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.PayableAmount)}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(row.ClosingAmount)}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.SystemUniqueId}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white max-w-[140px] truncate" title={row.Comments}>{row.Comments}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white max-w-[140px] truncate" title={row.Remarks}>{row.Remarks}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.Remarks}</td>
                                             </tr>
                                         ))
                                     ) : (
@@ -190,7 +169,6 @@ const APIFundLedger = () => {
                                 </tbody>
                             </table>
                         </div>
-                        {totalPages ? <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} /> : ""}
                     </div>
                 </div>
             </div>
@@ -198,4 +176,4 @@ const APIFundLedger = () => {
     )
 }
 
-export default APIFundLedger
+export default APIwiseFund

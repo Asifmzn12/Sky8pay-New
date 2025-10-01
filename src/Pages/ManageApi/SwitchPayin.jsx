@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SwitchPayin() {
+const SwitchPayin=()=> {
   return (
     <div>SwitchPayin</div>
   )

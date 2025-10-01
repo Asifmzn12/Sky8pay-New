@@ -168,6 +168,7 @@ export const menus = [
     children: [
       { text: "Given API Profit", icon: BsCircleFill, path: "/GivenAPIProfit" },
       { text: "API Fund", icon: BsCircleFill, path: "/APIFund" },
+      { text: "API Wise Fund", icon: BsCircleFill, path: "/APIwiseFund" },
       { text: "API Fund Ledger", icon: BsCircleFill, path: "/APIFundLedger" },
       { text: "API Company Details", icon: BsCircleFill, path: "/APICompanyDetails" },
       { text: "Manage Slab", icon: BsCircleFill, path: "/ManageSlab" },

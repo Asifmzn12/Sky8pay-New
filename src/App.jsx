@@ -98,6 +98,7 @@ import UnSettledLedgerReport from "./Pages/UnSettledWalletReports/UnSettledLedge
 // Manage API Pages
 import GivenAPIProfit from "./Pages/ManageApi/GivenAPIProfit";
 import APIFund from "./Pages/ManageApi/APIFund";
+import APIwiseFund from "./Pages/ManageApi/APIwiseFund";
 import APIFundLedger from "./Pages/ManageApi/APIFundLedger";
 import ApiCompanyDetails from "./Pages/ManageApi/ApiCompanyDetails";
 import ManageSlab from "./Pages/ManageApi/ManageSlab";
@@ -221,6 +222,7 @@ const pageMap = {
   "/GivenAPIProfit": GivenAPIProfit,
   "/APIFund": APIFund,
   "/APIFundLedger": APIFundLedger,
+  "/APIwiseFund": APIwiseFund,
   "/APICompanyDetails": ApiCompanyDetails,
   "/ManageSlab": ManageSlab,
   "/SwitchPayin": SwitchPayin,

@@ -31,8 +31,8 @@ export const BindMasterData = async (payload = {}) => {
     }
 }
 export const BindAPI = async (payload = {}) => {
-    try {        
-        const response = await api.post("/Masters/GetAllAPIList", payload);                
+    try {
+        const response = await api.post("/Masters/GetAllAPIList", payload);
         return response.data;
     } catch (error) {
         console.error("Error fetch api detail", error);
@@ -46,5 +46,16 @@ export const BindAPIListByServiceName = async (payload = {}) => {
         return response.data;
     } catch (error) {
         console.log("Error fetch api detail by service name ", error);
+        throw error;
+    }
+}
+
+export const GetServiceList = async (payload = {}) => {
+    try {
+        const response = await api.post("/Masters/GetServiceList", payload);
+        return response.data;
+    } catch (error) {
+        console.log("Error fetch api detail by service name ", error);
+        throw error;
     }
 }

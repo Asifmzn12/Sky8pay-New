@@ -64,19 +64,6 @@ const BankMaster = () => {
     fetchInitialData();
   }, []);
 
-  // This useEffect ensures the user list is populated correctly when the modal opens for an edit
-  // useEffect(() => {
-  //   if (isModalOpen && editingId) {
-  //     // Find the row being edited to get the RoleId
-  //     const editedRow = userBankList.data.find(row => row.id === editingId);
-  //     if (editedRow) {
-  //       BindDrowndownUserRole();
-  //     }
-  //   } else {
-  //     setUserList([]);
-  //   }
-  // }, [isModalOpen, editingId]);
-
   const fetchInitialData = async () => {
     setLoadingForm(true);
     try {
