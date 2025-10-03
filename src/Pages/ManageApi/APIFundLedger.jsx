@@ -4,7 +4,7 @@ import "antd/dist/reset.css"; // Ant Design styles
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import { BindAPIListByServiceName } from '../../services/Commonapi';
-import { GetApiFund, GetApiFundLedger } from '../../services/ManageAPI';
+import { GetApiFundLedger } from '../../services/ManageAPI';
 import Pagination from '../../utils/Pagination';
 const { RangePicker } = DatePicker;
 

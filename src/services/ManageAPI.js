@@ -91,11 +91,61 @@ export const SaveUpdateSlab = async (payload = {}) => {
 }
 
 export const GetSlab = async (payload = {}) => {
-    try {        
+    try {
         const response = await api.post("/ManageAPI/GetSlab", payload);
         return response.data;
     } catch (error) {
         console.log("Error get slab details", error);
+        throw error;
+    }
+}
+
+export const GetSwitchPayin = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageAPI/GetSwitchPayin", payload);
+        return response.data;
+    } catch (error) {
+        console.log("Error get switch payin", error);
+        throw error;
+    }
+}
+
+export const SaveUpdatePayoutLimit = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageAPI/SaveUpdatePayoutLimit", payload);
+        return response.data;
+    } catch (error) {
+        console.log("Error payout limit", error);
+        throw error;
+    }
+}
+
+export const GetPayoutLimit = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageAPI/GetPayoutMinMaxLimit", payload);
+        return response.data;
+    } catch (error) {
+        console.log("Error get payout limit", error);
+        throw error;
+    }
+}
+
+export const DeletePayoutMinMax = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageAPI/DeletePayoutMinMax", payload);
+        return response.data;
+    } catch (error) {
+        console.log("Error delete payout limit", error);
+        throw error;
+    }
+}
+
+export const GetInstantPayinSetup = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageAPI/GetInstantPayinAPISwitching", payload);
+        return response.data;
+    } catch (error) {
+        console.log("Errorget payin setup", error);
         throw error;
     }
 }
