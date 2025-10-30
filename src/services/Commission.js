@@ -5,8 +5,11 @@ export const SaveUpdateCommissionPackage = async (payload = {}) => {
         const response = await api.post("/Commission/SaveUpdateCommissionPackage", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch save and update commission package details", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -15,8 +18,11 @@ export const GetCommissionPackage = async (payload = {}) => {
         const response = await api.post("/Commission/GetCommissionPackage", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch get commission package details", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -25,7 +31,10 @@ export const GetCommissionLedger = async (payload = {}) => {
         const response = await api.post("/Commission/GetCommissionLedger", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch get commission ledger", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }

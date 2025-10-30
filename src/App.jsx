@@ -1,7 +1,9 @@
 // src/App.jsx
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { menus } from "./config/menu";
+
+import Login from './Pages/Auth/Login';
 import DashBoardLayout from "./layouts/DashBoardLayout";
 // Pages Imports
 import DashBoard from "./Pages/Dashboard/DashBoard";
@@ -154,10 +156,12 @@ import CreateEmployee from "./Pages/Employee/CreateEmployee";
 import ActiveEmployee from "./Pages/Employee/ActiveEmployee";
 import InActiveEmployee from "./Pages/Employee/InActiveEmployee";
 import EmployeeLoginHistory from "./Pages/Employee/EmployeeLoginHistory";
+//import { loadCsrfToken } from "./services/api";
 
 // Page mapping
 const pageMap = {
-  "/": DashBoard,
+  "/": Login,
+  "/DashBoard": DashBoard,
   "/Sales": Sales,
   "/CreateInvoice": CreateInvoice,
   "/PendingFundRequest": PendingFundRequest,
@@ -278,12 +282,16 @@ const renderRoutes = (menus) => {
   });
   return routes;
 };
-
 function App() {
+  //const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   loadCsrfToken();
+  // }, [])
   return (
     <Router>
       <Routes>
-        <Route element={<DashBoardLayout />}>
+        <Route path="/" element={<Login />} />
+        <Route element={<ProtectRoute>  <DashBoardLayout /></ProtectRoute>}>
           {renderRoutes(menus)}
         </Route>
       </Routes>
@@ -291,4 +299,16 @@ function App() {
   );
 }
 
+function getCsrfToken() {
+  return document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("XSRF-TOKEN="))
+    ?.split("=")[1];
+}
+
+
+function ProtectRoute({ children }) {  
+  var token = getCsrfToken();
+  return token ? children : <Navigate to="/" replace />;
+}
 export default App;

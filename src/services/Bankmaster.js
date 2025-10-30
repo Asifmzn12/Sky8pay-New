@@ -5,18 +5,24 @@ export const BindUserBankList = async (payload = {}) => {
         const response = await api.post("/Masters/GetUserBankMaster", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch user bank list data", error);
-        throw error;
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
 export const SaveUpdateBankMaster = async (payload = {}) => {
-    try {                
+    try {
         const response = await api.post("/Masters/SaveUpdateBankMaster", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch save and update bank details", error);
-        throw error;
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -25,7 +31,10 @@ export const DeleteBankDetails = async (payload = {}) => {
         const response = await api.post("/Masters/DeleteBankMaster", payload);
         return response.data;
     } catch (error) {
-        console.log("Error deleted bank", error);
-        throw error;
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }

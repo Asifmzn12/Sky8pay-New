@@ -1,12 +1,14 @@
 import api from "./api";
 
 export const GetSaleDashBoard = async (payload = {}) => {
-    try {                
+    try {                        
         const response = await api.post("/DashBoard", payload);
         return response.data;
     } catch (error) {
-        console.error("Error fetching sales dashboard", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 };
-

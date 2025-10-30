@@ -12,6 +12,7 @@ import { BsDownload, BsEye, BsReceipt } from 'react-icons/bs';
 import Pagination from '../../utils/Pagination';
 import { StatusEnum } from '../../utils/StatusEnum';
 import { GetUnsettledPayinReport, PayinCheckStatusTransaction } from "../../services/PayinReport";
+import checkStatus from '../../assests/icon/checkstatus-icon.png';
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -199,7 +200,7 @@ const UnSettledPendingPayinReport = () => {
             </select>
             <input type="text" onChange={(e) => setsearchValue(e.target.value)} value={searchValue} placeholder='Search' className="block w-full sm:w-48 px-4 py-2 bg-gray-50 dark:bg-gray-700 border rounded-md text-gray-900 dark:text-white" />
             <button
-              onClick={() => BindPayinReport({  dateRange,  selectedUser, selectedApi, searchValue, currentPage })}
+              onClick={() => BindPayinReport({ dateRange, selectedUser, selectedApi, searchValue, currentPage })}
               className="py-2 px-4 rounded-full text-sm font-medium bg-blue-600 text-white hover:bg-blue-700">
               Search
             </button>
@@ -275,7 +276,11 @@ const UnSettledPendingPayinReport = () => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.IsFraud}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.TransactionFrom}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white max-w-[140px] truncate" title={row.IpAddress}>{row.IpAddress}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium"><BsEye size={20} color='black' onClick={() => UpdateCheckStatus(row.Id)} /> </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                          <a href='#' onClick={() => UpdateCheckStatus(row.Id)}>
+                            <img src={checkStatus} style={{height:35}} />
+                          </a>
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.IPCity}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{row.IPState}</td>
 

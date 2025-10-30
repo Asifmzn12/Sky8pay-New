@@ -6,7 +6,10 @@ export const GetLoanLedger=async(payload={})=>{
         const response=await api.post("/ManageLoan/GetLoanLedger",payload);
         return response.data;
     }catch(error){
-        console.log("Error fetch loan ledger",error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }

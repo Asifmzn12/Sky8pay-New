@@ -13,6 +13,7 @@ import {
 import { HiOutlineSearch } from "react-icons/hi";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { menus } from "../config/menu";
+import { DoAdminLogout } from "../services/AuthService";
 
 
 // ... (imports)
@@ -189,6 +190,13 @@ function DashBoardLayout() {
     });
   };
 
+  const logout = async () => {
+    await DoAdminLogout();
+    localStorage.removeItem("token");
+    localStorage.removeItem("refreshtoken");    
+    window.location.replace("/");
+  }
+
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden">
       {/* Sidebar */}
@@ -323,7 +331,7 @@ function DashBoardLayout() {
                       <MdOutlinePerson className="text-xl" /> Social Profile
                       <span className="ml-auto bg-yellow-400 text-xs px-2 py-0.5 rounded-full">02</span>
                     </li>
-                    <li className="flex items-center gap-2 cursor-pointer hover:text-red-500">
+                    <li className="flex items-center gap-2 cursor-pointer hover:text-red-500" onClick={logout}>
                       <MdOutlineLogout className="text-xl" /> Logout
                     </li>
                   </ul>

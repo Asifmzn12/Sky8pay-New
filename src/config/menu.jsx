@@ -9,7 +9,7 @@ import { BsQuestionCircle, BsCircleFill } from "react-icons/bs";
 import { FaFileInvoice as FaGST } from "react-icons/fa";
 
 export const menus = [
-  { text: "Dashboard", icon: RiHome2Fill, path: "/" },
+  { text: "Dashboard", icon: RiHome2Fill, path: "/Dashboard" },
   { text: "Sale", icon: MdSell, path: "/Sales", badge: 25 },
   { text: "Create Invoice", icon: FaFileInvoice, path: "/CreateInvoice" },
   {

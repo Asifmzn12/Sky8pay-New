@@ -6,8 +6,11 @@ export const BindUserRole = async () => {
         return response.data;
     }
     catch (error) {
-        console.log("Error fetch user role data ", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -16,8 +19,11 @@ export const BindUserListByRoleId = async (payload = {}) => {
         const response = await api.post("/ManageCustomers/GetCustomerDetailsDropdown", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch user list data", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -26,8 +32,11 @@ export const BindMasterData = async (payload = {}) => {
         const response = await api.post("/Masters/GetMasterData", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch status master", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 export const BindAPI = async (payload = {}) => {
@@ -35,8 +44,11 @@ export const BindAPI = async (payload = {}) => {
         const response = await api.post("/Masters/GetAllAPIList", payload);
         return response.data;
     } catch (error) {
-        console.error("Error fetch api detail", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 };
 
@@ -45,8 +57,11 @@ export const BindAPIListByServiceName = async (payload = {}) => {
         const response = await api.post("/Masters/GetAPIListByServiceName", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch api detail by service name ", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -55,7 +70,10 @@ export const GetServiceList = async (payload = {}) => {
         const response = await api.post("/Masters/GetServiceList", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch api detail by service name ", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }

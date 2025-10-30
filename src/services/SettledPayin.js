@@ -5,8 +5,11 @@ export const GetsettledPayinReport = async (payload = {}) => {
         const response = await api.post("/Payin/GetsettledPayinReport", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch settled payin report", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -15,7 +18,10 @@ export const GetsettledPayinLedger = async (payload = {}) => {
         const response = await api.post("/Payin/GetsettledPayinLedgerReport", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch settled payin ledger", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }

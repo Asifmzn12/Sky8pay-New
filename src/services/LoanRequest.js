@@ -5,8 +5,11 @@ export const BindLoanRequest = async (payload = {}) => {
         const response = await api.post("/ManageLoan/GetUserLoanRequest", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch loan request", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -15,8 +18,11 @@ export const BindLoanHistory = async (payload = {}) => {
         const response = await api.post("/ManageLoan/GetUserLoanDetails", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch loan history", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -26,8 +32,11 @@ export const UpdateLoanRequest = async (payload = {}) => {
         return response.data;
     }
     catch (error) {
-        console.log("Error fetch update loan request", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -37,7 +46,11 @@ export const UserLoanRecovered = async (payload = {}) => {
         const response = await api.post("/ManageLoan/LoanRecovered", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch update loan recovered", error);
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -46,7 +59,10 @@ export const UserLifeTimeLoanReport = async (payload = {}) => {
         const response = await api.post("/ManageLoan/LifeTimeLoanReport", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch life time report", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }

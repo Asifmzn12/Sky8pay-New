@@ -5,8 +5,11 @@ export const GetUnsettledPayinReport = async (payload = {}) => {
         const response = await api.post("/Payin/GetUnsettledPayinReport", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch unsettled payin report", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 export const GetPayinInvoiceLink = async (payload = {}) => {
@@ -14,8 +17,11 @@ export const GetPayinInvoiceLink = async (payload = {}) => {
         const response = await api.post("/Payin/GeneratePayinInvoice", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch payin invoice link", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -24,8 +30,11 @@ export const GetUnsettledPayinLedger = async (payload = {}) => {
         const response = await api.post("/Payin/GetUnsettledPayinLedgerReport", payload);
         return response.data;
     } catch (error) {
-        console.log("Erro fetch payin ledger", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -34,6 +43,10 @@ export const PayinCheckStatusTransaction = async (payload = {}) => {
         const response = await api.post("/Payin/CheckStatus", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch payin check status", error);
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }

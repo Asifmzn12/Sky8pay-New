@@ -51,7 +51,7 @@ const Sales = () => {
         apiId: apiId,
         startDate: range.startDate,
         endDate: range.endDate
-      });      
+      });
       setSales(data.data || []);
     } catch (err) {
       setError(err.message || "Something went wrong fetching sales data.");

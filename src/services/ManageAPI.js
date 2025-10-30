@@ -5,8 +5,11 @@ export const GetGivenApiProfit = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetGivenApiProfit", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch given profit", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -15,8 +18,11 @@ export const GetApiFund = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetApiFund", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch api fund", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -25,8 +31,11 @@ export const GetApiFundLedger = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetApiFundLedger", payload);
         return response.data;
     } catch (error) {
-        console.log("Error fetch api fund", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -35,8 +44,11 @@ export const SaveApiFund = async (payload = {}) => {
         const response = await api.post("/ManageAPI/SaveAPIFund", payload);
         return response.data;
     } catch (error) {
-        console.log("Error saved api fund data ", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -45,8 +57,11 @@ export const SaveApiCompanyDetails = async (payload = {}) => {
         const response = await api.post("/ManageAPI/SaveApiCompanyDetails", payload);
         return response.data;
     } catch (error) {
-        console.log("Error save api company details", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -55,8 +70,11 @@ export const GetApiDetailsById = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetApiDetailsById", payload);
         return response.data;
     } catch (error) {
-        console.log("Error get api details by id", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -65,8 +83,11 @@ export const GetApiCompanyDetails = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetApiCompanyDetails", payload);
         return response.data;
     } catch (error) {
-        console.log("Error get api company details", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -75,8 +96,11 @@ export const DeleteApiCompanyDetails = async (payload = {}) => {
         const response = await api.post("/ManageAPI/DeleteApiCompanyDetails", payload);
         return response.data;
     } catch (error) {
-        console.log("Error delete api company details", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -85,8 +109,11 @@ export const SaveUpdateSlab = async (payload = {}) => {
         const response = await api.post("/ManageAPI/SaveUpdateSlabDetails", payload);
         return response.data;
     } catch (error) {
-        console.log("Error save slab details", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -95,8 +122,11 @@ export const GetSlab = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetSlab", payload);
         return response.data;
     } catch (error) {
-        console.log("Error get slab details", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -105,8 +135,11 @@ export const GetSwitchPayin = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetSwitchPayin", payload);
         return response.data;
     } catch (error) {
-        console.log("Error get switch payin", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -115,8 +148,11 @@ export const SaveUpdatePayoutLimit = async (payload = {}) => {
         const response = await api.post("/ManageAPI/SaveUpdatePayoutLimit", payload);
         return response.data;
     } catch (error) {
-        console.log("Error payout limit", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -125,8 +161,11 @@ export const GetPayoutLimit = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetPayoutMinMaxLimit", payload);
         return response.data;
     } catch (error) {
-        console.log("Error get payout limit", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -135,8 +174,11 @@ export const DeletePayoutMinMax = async (payload = {}) => {
         const response = await api.post("/ManageAPI/DeletePayoutMinMax", payload);
         return response.data;
     } catch (error) {
-        console.log("Error delete payout limit", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
 
@@ -145,7 +187,10 @@ export const GetInstantPayinSetup = async (payload = {}) => {
         const response = await api.post("/ManageAPI/GetInstantPayinAPISwitching", payload);
         return response.data;
     } catch (error) {
-        console.log("Errorget payin setup", error);
-        throw error;
+         if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
     }
 }
