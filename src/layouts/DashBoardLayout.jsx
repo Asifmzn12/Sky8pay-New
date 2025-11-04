@@ -193,7 +193,9 @@ function DashBoardLayout() {
   const logout = async () => {
     await DoAdminLogout();
     localStorage.removeItem("token");
-    localStorage.removeItem("refreshtoken");    
+    localStorage.removeItem("refreshtoken");
+    localStorage.removeItem("serial");
+    localStorage.removeItem("serialtype");
     window.location.replace("/");
   }
 

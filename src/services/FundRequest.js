@@ -1,9 +1,11 @@
+import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
 export const BindFundRequest = async (payload = {}) => {
     try {        
         const response = await api.post("/ManageFund/FundRequestData", payload);        
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -15,10 +17,10 @@ export const BindFundRequest = async (payload = {}) => {
 
 
 export const UpdatePendingFundRequest = async (payload = {}) => {
-    try {
-        console.log(payload);
+    try {        
         const response = await api.post("/ManageFund/UpdateFundRequest", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }

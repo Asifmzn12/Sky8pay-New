@@ -17,17 +17,22 @@ const Login = () => {
     });
 
     useEffect(() => {
-        
+
     }, [])
 
     const onSubmit = async (data) => {
-        const _result = await doAdminLogin({
+        var requestdata = encryptvalue(JSON.stringify({
             userName: encryptvalue(data.userName),
             password: encryptvalue(data.Password),
             roleName: encryptvalue("@dmin&")
-        });
-        if (_result.statuscode === 200) {            
+        }))
+        const _result = await doAdminLogin({
+            data: requestdata
+        });        
+        if (_result.statuscode === 200) {
             localStorage.setItem("token", _result.data.token);
+            localStorage.setItem("serial",_result.data.lId);
+            localStorage.setItem("serialtype",_result.data.rId);
             loadCsrfToken();
             setLoginError(_result.message);
             navigate("/sales", { replace: true });

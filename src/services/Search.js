@@ -1,9 +1,11 @@
+import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
 export const SearchPayin = async (payload = {}) => {
     try {
         const response = await api.post("/Search/GetPayinSearch", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -16,7 +18,8 @@ export const SearchPayin = async (payload = {}) => {
 export const SearchPayout = async (payload = {}) => {
     try {
         const response = await api.post("/Search/GetPayoutSearch", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -29,7 +32,8 @@ export const SearchPayout = async (payload = {}) => {
 export const UpdatePendingPayin = async (payload = {}) => {
     try {
         const response = await api.post("/Search/UpdatePendingPayin", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -42,7 +46,8 @@ export const UpdatePendingPayin = async (payload = {}) => {
 export const UpdatePendingPayout = async (payload = {}) => {
     try {
         const response = await api.post("/Search/UpdatePendingPayout", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -55,7 +60,8 @@ export const UpdatePendingPayout = async (payload = {}) => {
 export const GetTopPayinTxn = async (payload = {}) => {
     try {        
         const response = await api.post("/Search/GetTopPayinTxn", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }

@@ -1,9 +1,11 @@
+import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
 export const SubmitLienData = async (payload = {}) => {
     try {
         const response = await api.post("/ManageCustomers/SaveLienData", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -16,7 +18,8 @@ export const SubmitLienData = async (payload = {}) => {
 export const GetLienData = async (payload = {}) => {
     try {
         const response = await api.post("/ManageCustomers/GetLienData", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -29,7 +32,8 @@ export const GetLienData = async (payload = {}) => {
 export const DeleteUserLien = async (payload = {}) => {
     try {
         const response = await api.post("/ManageCustomers/DeleteLien", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -42,7 +46,8 @@ export const DeleteUserLien = async (payload = {}) => {
 export const GetDeletedLien = async (payload = {}) => {
     try {
         const response = await api.post("/ManageCustomers/GetDeletedLien", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }

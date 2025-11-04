@@ -1,11 +1,13 @@
+import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
 export const GetPayoutReports = async (payload = {}) => {
-    try {        
+    try {
         const response = await api.post("/Payout/GetPayoutReport", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
     } catch (error) {
-         if (error.code === "ERR_NETWORK") {
+        if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
         } else {
             return error.response.data;
@@ -16,9 +18,10 @@ export const GetPayoutReports = async (payload = {}) => {
 export const GetPayoutInvoiceLink = async (payload = {}) => {
     try {
         const response = await api.post("/Payout/GeneratePayoutInvoice", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
     } catch (error) {
-         if (error.code === "ERR_NETWORK") {
+        if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
         } else {
             return error.response.data;
@@ -29,9 +32,10 @@ export const GetPayoutInvoiceLink = async (payload = {}) => {
 export const CheckStatusTransaction = async (payload = {}) => {
     try {
         const response = await api.post("/Payout/CheckStatus", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
     } catch (error) {
-         if (error.code === "ERR_NETWORK") {
+        if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
         } else {
             return error.response.data;
@@ -40,11 +44,12 @@ export const CheckStatusTransaction = async (payload = {}) => {
 }
 
 export const GetPayoutLedger = async (payload = {}) => {
-    try {                
+    try {
         const response = await api.post("/Payout/PayoutLedger", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
     } catch (error) {
-         if (error.code === "ERR_NETWORK") {
+        if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
         } else {
             return error.response.data;
@@ -52,12 +57,13 @@ export const GetPayoutLedger = async (payload = {}) => {
     }
 }
 
-export const GetGarbagePayout=async(payload={})=>{
-    try{
-const response=await api.post("/Payout/GarbagePayoutReport",payload);
-return response.data;
-    }catch(error){
-         if (error.code === "ERR_NETWORK") {
+export const GetGarbagePayout = async (payload = {}) => {
+    try {
+        const response = await api.post("/Payout/GarbagePayoutReport", payload);
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
+    } catch (error) {
+        if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
         } else {
             return error.response.data;

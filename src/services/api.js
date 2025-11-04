@@ -31,12 +31,10 @@ function GenerateDynamicHeader(basetoken) {
 api.interceptors.request.use(
   (config) => {
     const csrfToken = getCsrfToken("XSRF-TOKEN");
-    console.log("src token :", csrfToken);
     if (csrfToken) {
       config.headers["X-CSRF-Token"] = GenerateDynamicHeader(csrfToken);
     }
     const authtoken = localStorage.getItem("token");
-    console.log(authtoken);
     if (authtoken) {
       config.headers["Authorization"] = `Bearer ${authtoken}`;
     }
@@ -62,7 +60,7 @@ const processQueue = (error, token = null) => {
 api.interceptors.response.use(
   response => response,
   async (error) => {
-    const orignialRequest = error.config;
+    const orignialRequest = error.config;    
     if (error.response?.status === 401 && !orignialRequest._retry) {
       orignialRequest._retry = true;
       if (isRefreshing) {
@@ -99,6 +97,10 @@ api.interceptors.response.use(
       } catch (err) {
         processQueue()
         await DoAdminLogout();
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshtoken");
+        localStorage.removeItem("serial");
+        localStorage.removeItem("serialtype");
         window.location.replace("/");
         return Promise.reject(err);
       }
@@ -106,9 +108,13 @@ api.interceptors.response.use(
         isRefreshing = false;
       }
     } else {
-      if (error.response?.status === 403) {
+      if (error.response?.status === 403 || orignialRequest._retry) {
         processQueue()
         await DoAdminLogout();
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshtoken");
+        localStorage.removeItem("serial");
+        localStorage.removeItem("serialtype");
         window.location.replace("/");
         return Promise.reject(err);
       }

@@ -1,85 +1,86 @@
 import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
-export const BindUserRole = async () => {
+export const GetGSTReport = async (payload) => {
     try {
-        const response = await api.post("/Masters/GetMasterRole", {})
-        const realresponse = decryptValue(response.data.data);
-        return JSON.parse(realresponse);
-    }
-    catch (error) {
-        if (error.code === "ERR_NETWORK") {
-            return { statuscode: 502, message: error.message }
-        } else {
-            return error.response.data;
-        }
-    }
-}
-
-export const BindUserListByRoleId = async (payload = {}) => {
-    try {
-        const response = await api.post("/ManageCustomers/GetCustomerDetailsDropdown", payload);
+        const response = await api.post("GST/GetGSTReport", payload);
         const realresponse = decryptValue(response.data.data);
         return JSON.parse(realresponse);
     } catch (error) {
         if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
-        } else {
+        } else if (error.response.data.status === 400) {
+            return { statuscode: 400, message: error.response.data.title }
+        }
+        else {
             return error.response.data;
         }
     }
 }
 
-export const BindMasterData = async (payload = {}) => {
+export const SavePayGst = async (payload) => {
     try {
-        const response = await api.post("/Masters/GetMasterData", payload);
+        const response = await api.post("GST/SavePayGst", payload);
         const realresponse = decryptValue(response.data.data);
         return JSON.parse(realresponse);
     } catch (error) {
         if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
-        } else {
+        } else if (error.response.data.status === 400) {
+            return { statuscode: 400, message: error.response.data.title }
+        }
+        else {
             return error.response.data;
         }
     }
 }
-export const BindAPI = async (payload = {}) => {
+
+export const GetGstLedger = async (payload) => {
     try {
-        const response = await api.post("/Masters/GetAllAPIList", payload);
+        const response = await api.post("GST/GetGSTLedger", payload);
         const realresponse = decryptValue(response.data.data);
         return JSON.parse(realresponse);
     } catch (error) {
         if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
-        } else {
+        } else if (error.response.data.status === 400) {
+            return { statuscode: 400, message: error.response.data.title }
+        }
+        else {
             return error.response.data;
         }
     }
-};
+}
 
-export const BindAPIListByServiceName = async (payload = {}) => {
+export const SaveUserWiseGst = async (payload) => {
     try {
-        const response = await api.post("/Masters/GetAPIListByServiceName", payload);
+        const response = await api.post("GST/PaidUserWiseGst", payload);
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
+    } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else if (error.response.data.status === 400) {
+            return { statuscode: 400, message: error.response.data.title }
+        }
+        else {
+            return error.response.data;
+        }
+    }
+}
+
+export const GetUserWiseGst = async (payload) => {
+    try {
+        const response = await api.post("GST/GetUserWiseGst", payload);
         const realresponse = decryptValue(response.data.data);        
         return JSON.parse(realresponse);
     } catch (error) {
         if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
-        } else {
-            return error.response.data;
+        } else if (error.response.data.status === 400) {
+            return { statuscode: 400, message: error.response.data.title }
         }
-    }
-}
-
-export const GetServiceList = async (payload = {}) => {
-    try {
-        const response = await api.post("/Masters/GetServiceList", payload);
-        const realresponse = decryptValue(response.data.data);
-        return JSON.parse(realresponse);
-    } catch (error) {
-        if (error.code === "ERR_NETWORK") {
-            return { statuscode: 502, message: error.message }
-        } else {
+        else {
             return error.response.data;
         }
     }

@@ -1,9 +1,11 @@
+import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
 export const GetGivenApiProfit = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetGivenApiProfit", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -16,7 +18,8 @@ export const GetGivenApiProfit = async (payload = {}) => {
 export const GetApiFund = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetApiFund", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -29,7 +32,8 @@ export const GetApiFund = async (payload = {}) => {
 export const GetApiFundLedger = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetApiFundLedger", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -42,7 +46,8 @@ export const GetApiFundLedger = async (payload = {}) => {
 export const SaveApiFund = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/SaveAPIFund", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -55,7 +60,8 @@ export const SaveApiFund = async (payload = {}) => {
 export const SaveApiCompanyDetails = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/SaveApiCompanyDetails", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -68,7 +74,8 @@ export const SaveApiCompanyDetails = async (payload = {}) => {
 export const GetApiDetailsById = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetApiDetailsById", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -81,7 +88,8 @@ export const GetApiDetailsById = async (payload = {}) => {
 export const GetApiCompanyDetails = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetApiCompanyDetails", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -94,7 +102,8 @@ export const GetApiCompanyDetails = async (payload = {}) => {
 export const DeleteApiCompanyDetails = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/DeleteApiCompanyDetails", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -107,7 +116,8 @@ export const DeleteApiCompanyDetails = async (payload = {}) => {
 export const SaveUpdateSlab = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/SaveUpdateSlabDetails", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -120,7 +130,8 @@ export const SaveUpdateSlab = async (payload = {}) => {
 export const GetSlab = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetSlab", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -133,7 +144,8 @@ export const GetSlab = async (payload = {}) => {
 export const GetSwitchPayin = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetSwitchPayin", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -146,7 +158,8 @@ export const GetSwitchPayin = async (payload = {}) => {
 export const SaveUpdatePayoutLimit = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/SaveUpdatePayoutLimit", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -159,7 +172,8 @@ export const SaveUpdatePayoutLimit = async (payload = {}) => {
 export const GetPayoutLimit = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetPayoutMinMaxLimit", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -172,7 +186,8 @@ export const GetPayoutLimit = async (payload = {}) => {
 export const DeletePayoutMinMax = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/DeletePayoutMinMax", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
@@ -185,7 +200,8 @@ export const DeletePayoutMinMax = async (payload = {}) => {
 export const GetInstantPayinSetup = async (payload = {}) => {
     try {
         const response = await api.post("/ManageAPI/GetInstantPayinAPISwitching", payload);
-        return response.data;
+        const realresponse = decryptValue(response.data.data);        
+        return JSON.parse(realresponse);       
     } catch (error) {
          if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }

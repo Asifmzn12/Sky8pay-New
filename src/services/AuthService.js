@@ -1,17 +1,14 @@
 
+import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
 
-export const doAdminLogin = async (payload = {}) => {    
+export const doAdminLogin = async (payload = {}) => {
     try {
         const response = await api.post("/Auth/AdminAuth", payload);
-        if (response.data.statuscode === 200) {            
-            return response.data;
-        } else {
-            return response.data;
-        }
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);        
     } catch (error) {
-        console.log(error);
         if (error.code === "ERR_NETWORK") {
             return { statuscode: 502, message: error.message }
         } else {

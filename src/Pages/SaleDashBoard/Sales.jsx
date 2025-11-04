@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BindAPI } from '../../services/Commonapi';
 import { GetSaleDashBoard } from '../../services/SaleDashBoard';
+import { encryptvalue } from '../../utils/AESEncrypted';
 
 
 // const Card = ({ title, value }) => (
@@ -35,7 +36,10 @@ const Sales = () => {
 
   const apiFetchData = async () => {
     try {
-      const data = await BindAPI({ RoleId: 2 });
+      var requestdata = encryptvalue(JSON.stringify({
+        RoleId: 2
+      }));
+      const data = await BindAPI({ data: requestdata });
       if (data && Array.isArray(data.data) && data.data.length > 0) {
         setApiOptions(data.data);
       }
@@ -47,11 +51,14 @@ const Sales = () => {
   const fetchData = async (range, apiId) => {
     setLoading(true);
     try {
-      const data = await GetSaleDashBoard({
+      var requestdata = encryptvalue(JSON.stringify({
         apiId: apiId,
         startDate: range.startDate,
         endDate: range.endDate
-      });
+      }));
+      const data = await GetSaleDashBoard({
+        data: requestdata
+      });      
       setSales(data.data || []);
     } catch (err) {
       setError(err.message || "Something went wrong fetching sales data.");
