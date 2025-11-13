@@ -94,13 +94,13 @@ export const menus = [
       { text: "Manage InstantWallet", icon: BsCircleFill, path: "/ManageInstantWallet" },
       { text: "Active Customers", icon: BsCircleFill, path: "/ActiveCustomers" },
       { text: "User Login History", icon: BsCircleFill, path: "/UserLoginHistory" },
-      { text: "Promote User", icon: BsCircleFill, path: "/PromoteUser" },
+      // { text: "Promote User", icon: BsCircleFill, path: "/PromoteUser" },
       { text: "InActive Customers", icon: BsCircleFill, path: "/InActiveCustomers" },
       { text: "User Wallet Balance", icon: BsCircleFill, path: "/UserWalletBalance" },
       { text: "Manage User Wallet", icon: BsCircleFill, path: "/ManageUserWallet" },
       { text: "Recon History", icon: BsCircleFill, path: "/ReconHistory" },
       { text: "Upline ApiWallet", icon: BsCircleFill, path: "/UplineApiWallet" },
-      { text: "Api Merchant Details", icon: BsCircleFill, path: "/ApiMerchantDetails" }
+      // { text: "Api Merchant Details", icon: BsCircleFill, path: "/ApiMerchantDetails" }
     ]
   },
   {

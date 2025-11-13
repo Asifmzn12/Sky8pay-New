@@ -3,7 +3,7 @@ import api from "./api";
 
 export const SubmitLienData = async (payload = {}) => {
     try {
-        const response = await api.post("/ManageCustomers/SaveLienData", payload);
+        const response = await api.post("/ManageLien/SaveLienData", payload);
         const realresponse = decryptValue(response.data.data);        
         return JSON.parse(realresponse);       
     } catch (error) {
@@ -17,7 +17,7 @@ export const SubmitLienData = async (payload = {}) => {
 
 export const GetLienData = async (payload = {}) => {
     try {
-        const response = await api.post("/ManageCustomers/GetLienData", payload);
+        const response = await api.post("/ManageLien/GetLienData", payload);
         const realresponse = decryptValue(response.data.data);        
         return JSON.parse(realresponse);       
     } catch (error) {
@@ -31,7 +31,7 @@ export const GetLienData = async (payload = {}) => {
 
 export const DeleteUserLien = async (payload = {}) => {
     try {
-        const response = await api.post("/ManageCustomers/DeleteLien", payload);
+        const response = await api.post("/ManageLien/DeleteLien", payload);
         const realresponse = decryptValue(response.data.data);        
         return JSON.parse(realresponse);       
     } catch (error) {
@@ -45,7 +45,7 @@ export const DeleteUserLien = async (payload = {}) => {
 
 export const GetDeletedLien = async (payload = {}) => {
     try {
-        const response = await api.post("/ManageCustomers/GetDeletedLien", payload);
+        const response = await api.post("/ManageLien/GetDeletedLien", payload);
         const realresponse = decryptValue(response.data.data);        
         return JSON.parse(realresponse);       
     } catch (error) {

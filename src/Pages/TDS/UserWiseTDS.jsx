@@ -10,10 +10,10 @@ import { GetUserWiseTds, SaveUserWiseTds } from '../../services/TDS';
 const ValidationError = Yup.object().shape({
   roleId: Yup.number().typeError("Role is required").moreThan(0, "Please select Role").required("Role is required"),
   userId: Yup.number().typeError("User is required").moreThan(0, "Please select User").required("User is required"),
-  PanNo: Yup.string().required("Pan is required"),
-  CompanyPanNo: Yup.string().required("Pan is required"),
+  PanNo: Yup.string().required("Pan is required").matches(/^[A-Z]{5}[0-9]{4}[A-Z]$/i),
+  CompanyPanNo: Yup.string().required("Pan is required").matches(/^[A-Z]{5}[0-9]{4}[A-Z]$/i),
   CompanyName: Yup.string().required("Company Name is required"),
-  Amount: Yup.number().typeError("Amount is required").moreThan(0, "Enter valid amount").required("Amount is required"),
+  Amount: Yup.string().matches(/^[0-9]+(\.[0-9]{1,2})?$/, "Invalid amount (up to 2 decimal places)").required("Amount is required"),
   Comment: Yup.string().required("Comment is required")
 });
 
@@ -129,6 +129,8 @@ function UserWiseTDS() {
   }
 
 
+
+
   const BindUserWiseTds = async (userId) => {
     try {
       var requestdata = encryptvalue(JSON.stringify({
@@ -235,6 +237,7 @@ function UserWiseTDS() {
                     <input
                       type="text"
                       {...register(field.replace(/\s+/g, ""))}
+
                       className={`block w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border rounded-md text-gray-900 dark:text-white ${errors[field.replace(/\s+/g, "")] ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
                         } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                     />

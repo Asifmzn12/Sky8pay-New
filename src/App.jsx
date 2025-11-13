@@ -54,13 +54,13 @@ import ManagePermission from "./Pages/ManageCustomer/ManagePermission";
 import ManageInstantWallet from "./Pages/ManageCustomer/ManageInstantWallet";
 import ActiveCustomers from "./Pages/ManageCustomer/ActiveCustomers";
 import UserLoginHistory from "./Pages/ManageCustomer/UserLoginHistory";
-import PromoteUser from "./Pages/ManageCustomer/PromoteUser";
+// import PromoteUser from "./Pages/ManageCustomer/PromoteUser";
 import InActiveCustomers from "./Pages/ManageCustomer/InActiveCustomers";
 import UserWalletBalance from "./Pages/ManageCustomer/UserWalletBalance";
 import ManageUserWallet from "./Pages/ManageCustomer/ManageUserWallet";
 import ReconHistory from "./Pages/ManageCustomer/ReconHistory";
 import UplineApiWallet from "./Pages/ManageCustomer/UplineApiWallet";
-import ApiMerchantDetails from "./Pages/ManageCustomer/ApiMerchantDetails";
+// import ApiMerchantDetails from "./Pages/ManageCustomer/ApiMerchantDetails";
 
 // Smart Collect Pages
 import CreateVA from "./Pages/SmartCollect/CreateVA";
@@ -193,13 +193,13 @@ const pageMap = {
   "/ManageInstantWallet": ManageInstantWallet,
   "/ActiveCustomers": ActiveCustomers,
   "/UserLoginHistory": UserLoginHistory,
-  "/PromoteUser": PromoteUser,
+  // "/PromoteUser": PromoteUser,
   "/InActiveCustomers": InActiveCustomers,
   "/UserWalletBalance": UserWalletBalance,
   "/ManageUserWallet": ManageUserWallet,
   "/ReconHistory": ReconHistory,
   "/UplineApiWallet": UplineApiWallet,
-  "/ApiMerchantDetails": ApiMerchantDetails,
+  // "/ApiMerchantDetails": ApiMerchantDetails,
   "/CreateVA": CreateVA,
   "/VAReport": VAReport,
   "/ActiveVAReport": ActiveVAReport,

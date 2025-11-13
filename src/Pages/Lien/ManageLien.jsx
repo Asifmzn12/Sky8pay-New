@@ -45,7 +45,7 @@ const ManageLien = () => {
   const [loadingTable, setLoadingTable] = useState(true);
   const [LienDataList, setLienDataList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [LienId, setLienId] = useState(0);
+  const [LienId, setLienId] = useState(0);
 
   const {
     register,
