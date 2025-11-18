@@ -143,7 +143,7 @@ function UplineApiWallet() {
                   >
                     <option value={0}>Select User</option>
                     {userList && Array.isArray(userList.data) && userList.data.length > 0 ?
-                      userList.data.filter(x => x.RoleId === 3).map((item) => (
+                      userList.data.filter(x => x.RoleId === 3 || x.RoleId === 6).map((item) => (
                         <option key={item.UserId} value={item.UserId}>{item.NameWithCompanyName}</option>
                       )) : (
                         <option disabled>No Data Found</option>

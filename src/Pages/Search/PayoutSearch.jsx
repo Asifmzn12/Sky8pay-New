@@ -11,8 +11,9 @@ import failed from '../../assests/StatusSvgIcon/Rtfailed.svg';
 import { BsDownload, BsEye, BsPencil, BsReceipt } from 'react-icons/bs';
 import complaintRaise from '../../assests/icon/Rtraise.svg';
 import complaintTicket from '../../assests/icon/Rtticket.svg';
-import { GetPayoutInvoiceLink } from "../../services/PayoutReport";
 import checkStatus from '../../assests/icon/checkstatus-icon.png';
+import { encryptvalue } from '../../utils/AESEncrypted';
+import { GetPayoutInvoiceLink } from '../../services/GenerateInvoice';
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -93,7 +94,8 @@ const PayoutSearch = () => {
 
   const fetchInitialData = async () => {
     try {
-      const _result = await BindMasterData({ type: "status" });
+      var requestdata = encryptvalue(JSON.stringify({ type: "status" }));
+      const _result = await BindMasterData({ data: requestdata });
       setStatusMaster(_result);
     } catch (err) {
       Swal.fire("warning!", err.message, "warning");
@@ -109,7 +111,8 @@ const PayoutSearch = () => {
   const GetSearchPayout = async () => {
     setLoadingTable(true);
     try {
-      const _result = await SearchPayout({ searchValue: searchValue, type: searchType });
+      var requestdata = encryptvalue(JSON.stringify({ searchValue: searchValue, type: searchType }));
+      const _result = await SearchPayout({ data: requestdata });
       setPayoutReportList(_result);
     } catch (err) {
       Swal.fire("warning!", err.message, "warning");
@@ -120,8 +123,9 @@ const PayoutSearch = () => {
 
   const DownloadPayoutInvoice = async (InvoiceId) => {
     try {
+      var requestdata = encryptvalue(JSON.stringify({ SystemUniqueId: InvoiceId }));
       const _result = await GetPayoutInvoiceLink({
-        SystemUniqueId: InvoiceId
+        data: requestdata
       });
       if (_result && _result.data) {
         const link = document.createElement("a");
@@ -140,7 +144,8 @@ const PayoutSearch = () => {
   }
   const UpdateCheckStatus = async (Id) => {
     try {
-      const _result = await PayoutCheckStatusTransaction({ payoutId: Id });
+      var requestdata = encryptvalue(JSON.stringify({ payoutId: Id }));
+      const _result = await PayoutCheckStatusTransaction({ data: requestdata });
       if (_result.statuscode === 200) {
         Swal.fire("Success!", _result.message, "success");
       } else {
@@ -171,9 +176,12 @@ const PayoutSearch = () => {
   const UpdatePendingPayoutStatus = async (data) => {
     setIsUpdateStatusModalOpen(false);
     try {
-      const _result = await UpdatePendingPayout({
+      var requestdata = encryptvalue(JSON.stringify({
         payoutId: PayoutId, status: data.statusId,
         utr: data.UTR, remarks: data.Comment
+      }));
+      const _result = await UpdatePendingPayout({
+        data: requestdata
       });
       if (_result.statuscode === 200) {
         Swal.fire("Success!", _result.message, "success");

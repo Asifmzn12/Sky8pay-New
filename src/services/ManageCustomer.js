@@ -217,3 +217,78 @@ export const SaveUplineApiWallet = async (payload = {}) => {
     }
 }
 
+
+export const GetWalletType = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageCustomers/GetWalletList", payload);
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
+    } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
+    }
+}
+
+
+export const SaveSettledWalletCreditDebit = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageCustomers/SaveSettledWalletCreditDebit", payload);
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
+    } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
+    }
+}
+
+export const GetCurrentUserWalletBalance = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageCustomers/GetCurrentUserWalletBalance", payload);
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
+    } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
+    }
+}
+
+export const SaveUnSettledWalletCreditDebit = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageCustomers/SaveUnSettledWalletCreditDebit", payload);
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
+    } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
+    }
+}
+
+
+export const GetUserActiveServices = async (payload = {}) => {
+    try {
+        const response = await api.post("/ManageCustomers/GetUserActiveServices", payload);
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
+    } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
+    }
+}
+
+
+

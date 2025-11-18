@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { DatePicker } from "antd";
-import "antd/dist/reset.css"; // Ant Design styles
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import { StatusEnum } from '../../utils/StatusEnum';
 const { RangePicker } = DatePicker;
-import { GetPayoutInvoiceLink, GetPayoutReports } from "../../services/PayoutReport";
+import { GetPayoutReports } from "../../services/PayoutReport";
 import { BindAPIListByServiceName, BindUserListByRoleId } from '../../services/Commonapi';
 import success from '../../assests/StatusSvgIcon/Rtsuccess.svg';
 import complaintRaise from '../../assests/icon/Rtraise.svg';
 import complaintTicket from '../../assests/icon/Rtticket.svg';
 import { BsDownload, BsEye, BsReceipt } from 'react-icons/bs';
 import Pagination from '../../utils/Pagination';
+import { GetPayoutInvoiceLink } from '../../services/GenerateInvoice';
 
 
 const Modal = ({ isOpen, onClose, children }) => {

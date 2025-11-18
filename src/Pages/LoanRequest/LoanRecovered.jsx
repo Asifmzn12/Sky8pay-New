@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { BindLoanHistory, UserLoanRecovered } from '../../services/LoanRequest';
+import { encryptvalue } from '../../utils/AESEncrypted';
 
 const Modal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
@@ -64,7 +65,10 @@ const LoanRecovered = () => {
 
   const fetchInitialData = async () => {
     try {
-      const _result = await BindUserListByRoleId({ roleId: 0 });
+      var requestdata = encryptvalue(JSON.stringify({
+        roleId: 0
+      }));
+      const _result = await BindUserListByRoleId({ data: requestdata });
       setUserListValue(_result);
 
     } catch (err) {
@@ -77,7 +81,10 @@ const LoanRecovered = () => {
 
   const UserLoanHistory = async (usrId) => {
     try {
-      const _result = await BindLoanHistory({ userId: usrId });
+      var requestdata = encryptvalue(JSON.stringify({
+        userId: usrId
+      }));
+      const _result = await BindLoanHistory({ data: requestdata });
       setUserLoanDetails(_result);
       return _result;
     } catch (err) {
@@ -106,15 +113,18 @@ const LoanRecovered = () => {
 
   const onSubmit = async (data) => {
     try {
-      const _result = await UserLoanRecovered({
+      var requestdata = encryptvalue(JSON.stringify({
         userId: data.userId, comment: data.comments,
         amount: data.amount, systemUniqueId: ""
+      }));
+      const _result = await UserLoanRecovered({
+        data: requestdata
       });
-      if (isModalOpen) {
-        setIsModalOpen(false);
-      }
       if (_result.statuscode === 200) {
         Swal.fire("Success!", _result.message, "success");
+        if (isModalOpen) {
+          setIsModalOpen(false);
+        }
         resetFormAndState();
       } else {
         Swal.fire("Error!", _result.message, "error");

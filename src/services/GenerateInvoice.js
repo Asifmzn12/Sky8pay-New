@@ -1,9 +1,9 @@
 import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
-export const GetPayoutReports = async (payload = {}) => {
+export const GetFinancialYear = async (payload={}) => {
     try {
-        const response = await api.post("/Payout/GetPayoutReport", payload);
+        const response = await api.post("/Invoice/GetFinancialYear", payload);
         const realresponse = decryptValue(response.data.data);
         return JSON.parse(realresponse);
     } catch (error) {
@@ -15,9 +15,9 @@ export const GetPayoutReports = async (payload = {}) => {
     }
 }
 
-export const CheckStatusTransaction = async (payload = {}) => {
+export const GetPayoutInvoiceLink = async (payload = {}) => {
     try {
-        const response = await api.post("/Payout/CheckStatus", payload);
+        const response = await api.post("/Invoice/GeneratePayoutInvoice", payload);
         const realresponse = decryptValue(response.data.data);
         return JSON.parse(realresponse);
     } catch (error) {
@@ -29,9 +29,9 @@ export const CheckStatusTransaction = async (payload = {}) => {
     }
 }
 
-export const GetPayoutLedger = async (payload = {}) => {
+export const GetMonthName = async (payload={}) => {
     try {
-        const response = await api.post("/Payout/PayoutLedger", payload);
+        const response = await api.post("/Invoice/GetMonthName", payload);
         const realresponse = decryptValue(response.data.data);
         return JSON.parse(realresponse);
     } catch (error) {
@@ -43,9 +43,23 @@ export const GetPayoutLedger = async (payload = {}) => {
     }
 }
 
-export const GetGarbagePayout = async (payload = {}) => {
+export const SaveInvoice = async (payload={}) => {
     try {
-        const response = await api.post("/Payout/GarbagePayoutReport", payload);
+        const response = await api.post("/Invoice/SaveInvoice", payload);
+        const realresponse = decryptValue(response.data.data);
+        return JSON.parse(realresponse);
+    } catch (error) {
+        if (error.code === "ERR_NETWORK") {
+            return { statuscode: 502, message: error.message }
+        } else {
+            return error.response.data;
+        }
+    }
+}
+
+export const GetInvoiceReport = async (payload={}) => {
+    try {
+        const response = await api.post("/Invoice/GetInvoiceReport", payload);
         const realresponse = decryptValue(response.data.data);
         return JSON.parse(realresponse);
     } catch (error) {

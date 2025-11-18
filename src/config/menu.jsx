@@ -11,7 +11,15 @@ import { FaFileInvoice as FaGST } from "react-icons/fa";
 export const menus = [
   { text: "Dashboard", icon: RiHome2Fill, path: "/Dashboard" },
   { text: "Sale", icon: MdSell, path: "/Sales", badge: 25 },
-  { text: "Create Invoice", icon: FaFileInvoice, path: "/CreateInvoice" },
+
+  {
+    text: "Invoice",
+    icon: FaFileInvoice,
+    children: [
+      { text: "Create Invoice", icon: BsCircleFill, path: "/CreateInvoice" },
+      { text: "Invoice Report", icon: BsCircleFill, path: "/InvoiceReport" },
+    ]
+  },
   {
     text: "Fund Request",
     icon: GiMoneyStack,

@@ -9,6 +9,7 @@ import DashBoardLayout from "./layouts/DashBoardLayout";
 import DashBoard from "./Pages/Dashboard/DashBoard";
 import Sales from "./Pages/SaleDashBoard/Sales";
 import CreateInvoice from "./Pages/Invoice/CreateInvoice";
+import InvoiceReport from "./Pages/Invoice/InvoiceReport";
 
 // Fund Request Pages
 import PendingFundRequest from "./Pages/FundRequest/PendingFundRequest";
@@ -164,6 +165,7 @@ const pageMap = {
   "/DashBoard": DashBoard,
   "/Sales": Sales,
   "/CreateInvoice": CreateInvoice,
+  "/InvoiceReport": InvoiceReport,
   "/PendingFundRequest": PendingFundRequest,
   "/FailedFundRequest": FailedFundRequest,
   "/SuccessFundRequest": SuccessFundRequest,

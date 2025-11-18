@@ -1,9 +1,9 @@
 import { decryptValue } from "../utils/AESEncrypted";
 import api from "./api";
 
-export const BindUserRole = async () => {
+export const BindUserRole = async (payload = {}) => {
     try {
-        const response = await api.post("/Masters/GetMasterRole", {})
+        const response = await api.post("/Masters/GetMasterRole", payload)
         const realresponse = decryptValue(response.data.data);
         return JSON.parse(realresponse);
     }

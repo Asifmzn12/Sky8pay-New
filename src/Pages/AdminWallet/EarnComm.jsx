@@ -32,7 +32,7 @@ const EarnComm = () => {
 
   const BindDrowndownUserRole = async () => {
     try {
-      const data = await BindUserRole();
+      const data = await BindUserRole({data:{}});
       setUserRoleList(data);
     } catch (err) {
       Swal.fire("warning!", err.message, "warning");

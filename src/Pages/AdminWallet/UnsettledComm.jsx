@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { GetApiWiseCommisson } from '../../services/AdminWallet';
+import Swal from 'sweetalert2';
 
 const UnsettledComm = () => {
   const [loadingTable, setLoadingTable] = useState(true);
@@ -16,7 +17,7 @@ const UnsettledComm = () => {
 
   const BindApiWisecomm = async () => {
     try {
-      var _result = await GetApiWiseCommisson({});
+      var _result = await GetApiWiseCommisson({data:{}});
       setApiwiseComm(_result);
       const totalEarncom = _result.data.reduce((x, item) => x + item.CreditedAmount, 0);
       setTotalEarning(totalEarncom);
